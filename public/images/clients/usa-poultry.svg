@@ -1,0 +1,13 @@
+<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .bg { fill: #f3f4f6; }
+      .title { font-family: Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #c41e3a; }
+      .subtitle { font-family: Arial, sans-serif; font-size: 9px; fill: #666; }
+    </style>
+  </defs>
+  <rect class="bg" width="200" height="120" rx="8"/>
+  <text class="title" x="100" y="40" text-anchor="middle" dominant-baseline="middle">USA</text>
+  <text class="subtitle" x="100" y="60" text-anchor="middle" dominant-baseline="middle">Poultry & Egg</text>
+  <text class="subtitle" x="100" y="75" text-anchor="middle" dominant-baseline="middle">Export Council</text>
+</svg>
