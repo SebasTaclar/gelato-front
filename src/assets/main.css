@@ -1,25 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sora:wght@400;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import './styles/global.css';
 @import './styles/modern-ecommerce.css';
-
-/* Carga de fuente personalizada Embrace Theories
-   Usa los archivos que ya tienes del DEMO.
-   Copia estos archivos dentro de public/fonts:
-   - EMBRACE THEORIES DEMO.otf
-   - EMBRACE THEORIES DEMO.ttf
-*/
-@font-face {
-  font-family: 'Embrace Theories';
-  src:
-    local('EMBRACE THEORIES DEMO'),
-    local('Embrace Theories Demo'),
-    url('/fonts/EMBRACE THEORIES DEMO.otf') format('opentype'),
-    url('/fonts/EMBRACE THEORIES DEMO.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
 :root {
   /* SOYDANI Brand Colors - Rojo, Negro, Blanco */
@@ -57,11 +39,7 @@
   --secondary-gradient-hover: linear-gradient(135deg, var(--primary-red) 0%, var(--secondary-red) 100%);
 
   /* Typography */
-  /* Titulares: Embrace Theories (con Sora como fallback) */
-  --font-primary: 'Embrace Theories', sans-serif;
-  /* Texto base: Raleway (con Inter como fallback) */
-  --font-secondary: 'Raleway', sans-serif;
-  --font-family: var(--font-secondary);
+  --font-family: 'Playfair Display', 'Georgia', 'Garamond', serif;
 }
 
 /* Dark Theme Variables (Default) */
@@ -177,15 +155,6 @@ body {
     color 0.3s ease;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
-  font-family: var(--font-primary);
-  letter-spacing: 1px;
-}
-
 #app {
   min-height: 100vh;
   width: 100%;
@@ -203,78 +172,49 @@ textarea {
   font-family: var(--font-family);
 }
 
-/* Botón base moderno */
-.btn {
-  font-family: var(--font-family);
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  border-radius: 12px;
-  padding: 12px 24px;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.btn::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: translate(-50%, -50%);
-  transition: width 0.6s, height 0.6s;
-}
-
-.btn:active::after {
-  width: 260px;
-  height: 260px;
-}
-
 /* Generic primary button styling for reuse */
 .btn-primary,
 button.btn-primary {
-  background: var(--primary-gradient);
-  color: #ffffff;
+  background: var(--accent-gradient);
+  color: #031633;
+  box-shadow: 0 4px 15px var(--accent-color-alpha-30);
+  border: none;
   border-radius: 12px;
-  padding: 14px 28px;
+  padding: 12px 24px;
   font-size: 1rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-family);
 }
 
 .btn-primary:hover:not(:disabled),
 button.btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px var(--primary-color-alpha-40);
-  background: var(--primary-gradient-hover);
+  box-shadow: 0 6px 20px var(--accent-color-alpha-40);
+  background: var(--accent-gradient-hover);
 }
 
 .btn-secondary,
 button.btn-secondary {
-  background: transparent;
-  color: var(--primary-red);
-  border: 2px solid var(--primary-red);
-  box-shadow: none;
+  background: var(--primary-gradient);
+  color: white;
+  box-shadow: 0 4px 15px var(--primary-color-alpha-30);
+  border: none;
   border-radius: 12px;
-  padding: 14px 28px;
+  padding: 12px 24px;
   font-size: 1rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-family);
 }
 
 .btn-secondary:hover:not(:disabled),
 button.btn-secondary:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px var(--primary-color-alpha-30);
-  background: rgba(220, 38, 38, 0.08);
-  color:#000000;
+  box-shadow: 0 6px 20px var(--primary-color-alpha-40);
+  background: var(--primary-gradient-hover);
 }
 
 .btn-primary:disabled,

@@ -33,16 +33,17 @@
       <main class="content">
         <header class="category-hero">
           <div class="category-hero-text">
-            <h1 class="category-title">Ofertas Especiales</h1>
-            <p class="category-description">Descubre nuestras mejores ofertas en joyería fina. Productos exclusivos con descuentos por tiempo limitado.</p>
+            <h1 class="category-title">{{ pageTitle }}</h1>
+            <p v-if="pageDescription" class="category-description">{{ pageDescription }}</p>
           </div>
 
           <div class="category-hero-image">
             <img
-              src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?w=900&h=600&fit=crop&q=80"
-              alt="Ofertas Especiales"
+              :src="categoryImageSrc"
+              :alt="pageTitle"
               loading="lazy"
               decoding="async"
+              @error="onCategoryImageError"
             />
           </div>
         </header>
@@ -69,52 +70,48 @@
         </div>
 
         <div class="meta">
-          <span v-if="isLoadingProducts" class="meta-text">Cargando productos...</span>
-          <span v-else class="meta-text">Mostrando {{ filteredOfferProducts.length }} productos</span>
+          <span v-if="loading" class="meta-text">Cargando productos...</span>
+          <span v-else class="meta-text">Mostrando {{ filteredProducts.length }} productos</span>
         </div>
 
         <div v-if="error" class="error">{{ error }}</div>
 
-        <div v-else-if="!isLoadingProducts && filteredOfferProducts.length > 0" class="grid">
+        <div v-else class="grid">
           <article
-            v-for="product in filteredOfferProducts"
-            :key="product.id"
+            v-for="p in filteredProducts"
+            :key="p.id"
             class="card"
             role="button"
             tabindex="0"
-            @click="openQuickView(product)"
-            @keydown.enter.prevent="openQuickView(product)"
-            @keydown.space.prevent="openQuickView(product)"
+            @click="openQuickView(p)"
+            @keydown.enter.prevent="openQuickView(p)"
+            @keydown.space.prevent="openQuickView(p)"
           >
             <div class="image-wrap">
-              <img :src="product.images[0]" :alt="product.name" loading="lazy" decoding="async" />
-              <!-- Badge de descuento -->
-              <div v-if="hasRealDiscount(product)" class="discount-badge-image">
-                -{{ Math.round(((product.originalPrice! - product.price) / product.originalPrice!) * 100) }}%
+              <img :src="p.images[0]" :alt="p.name" loading="lazy" decoding="async" />
+              <div v-if="p.originalPrice" class="discount-badge-image">
+                -{{ Math.round(((p.originalPrice - p.price) / p.originalPrice) * 100) }}%
               </div>
-              <!-- Overlay de no disponible -->
-              <div v-if="product.status !== 'available'" class="out-of-stock-overlay">
-                <span>{{ getStatusText(product.status) }}</span>
-              </div>
-              <!-- Badge de estado en esquina inferior izquierda -->
-              <span :class="['product-status-badge', getStatusClass(product.status)]">
-                {{ getStatusText(product.status) }}
+              <span :class="['product-status-badge', getStatusClass(p.status)]">
+                {{ getStatusText(p.status) }}
               </span>
             </div>
 
             <div class="card-body">
-              <div class="category-label">
-                {{ isGlobalSearch ? (hasRealDiscount(product) ? 'OFERTA' : categoryNameById(product.category)) : 'OFERTA' }}
+              <div class="category-label">{{ categoryName(p.category) }}</div>
+              <h3 class="name">{{ p.name }}</h3>
+              <div class="price-section">
+                <div class="price">${{ p.price.toLocaleString() }} COP</div>
+                <div v-if="p.originalPrice" class="original-price">
+                  ${{ p.originalPrice.toLocaleString() }} COP
+                </div>
               </div>
-              <h3 class="name">{{ product.name }}</h3>
-              <div class="price">${{ product.price.toLocaleString() }} COP</div>
-              <div v-if="hasRealDiscount(product)" class="original-price">${{ product.originalPrice!.toLocaleString() }} COP</div>
 
               <button 
-                v-if="product.status === 'available'"
+                v-if="p.status === 'available'" 
                 class="add" 
                 type="button" 
-                @click.stop="addProductToCart(product)"
+                @click.stop="addProductToCart(p)"
               >
                 <span class="cart">🛒</span>
                 Agregar
@@ -122,7 +119,8 @@
             </div>
           </article>
         </div>
-        <div v-else-if="!isLoadingProducts && filteredOfferProducts.length === 0" class="empty">
+
+        <div v-if="!loading && !error && filteredProducts.length === 0" class="empty">
           <p>No hay productos para mostrar.</p>
         </div>
       </main>
@@ -131,47 +129,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useProducts } from '@/composables/useProducts'
-import { useCategories } from '@/composables/useCategories'
 import { useCart } from '@/composables/useCart'
 import { useProductQuickView } from '@/composables/useProductQuickView'
 import type { Product } from '@/types/ProductType'
 
-import { useHead } from '@vueuse/head'
-
-useHead({
-  title: 'Ofertas | Joyería Angelie',
-  meta: [
-    {
-      name: 'description',
-      content: 'Descubre nuestras ofertas y productos con descuento en Joyería Angelie. Aprovecha precios especiales por tiempo limitado.'
-    },
-    { property: 'og:title', content: 'Ofertas | Joyería Angelie' },
-    { property: 'og:description', content: 'Productos con descuento en Joyería Angelie. Aprovecha precios especiales por tiempo limitado.' },
-    { property: 'og:image', content: '/images/logo.jpeg' },
-    { property: 'og:url', content: 'https://www.joyeriaangelie.com/ofertas' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:image', content: '/images/logo.jpeg' }
-  ]
-})
-
-const { regularProducts, loadProducts, showcaseProducts, loadShowcaseProducts } = useProducts()
-const { categories, loadCategories } = useCategories()
-const { addToCart } = useCart()
-const quickView = useProductQuickView()
-
-function openQuickView(product: Product) {
-  quickView.open(product)
-}
-
-const isLoadingProducts = ref(true)
-const error = ref<string | null>(null)
+const props = defineProps<{ slug: string; title?: string }>()
 
 const route = useRoute()
 
-// Filtros y búsqueda
+const { availableProducts, categories, loadProducts, loadCategories } = useProducts()
+const { addToCart } = useCart()
+const quickView = useProductQuickView()
+
+const loading = ref(false)
+const error = ref<string | null>(null)
+
 const searchTerm = ref('')
 const sortBy = ref<'featured' | 'price-asc' | 'price-desc'>('featured')
 const selectedPriceRange = ref<'all' | 'lt100' | '100-300' | '300-500' | 'gt500'>('all')
@@ -184,40 +159,88 @@ watch(
   { immediate: true }
 )
 
-const isGlobalSearch = computed(() => route.query.scope === 'all' && searchTerm.value.trim().length > 0)
+const categoryImageIndex = ref(0)
 
-const allProducts = computed(() => {
-  const list = [...regularProducts.value, ...showcaseProducts.value]
-  const seen = new Set<string>()
-  return list.filter(p => {
-    if (seen.has(p.id)) return false
-    seen.add(p.id)
-    return true
-  }) as Product[]
+function slugify(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+}
+
+const currentCategoryId = computed(() => {
+  const slug = props.slug
+  const direct = categories.value.find(c => slugify(c.name) === slug)
+  if (direct) return direct.id
+
+  const relaxed = categories.value.find(c => {
+    const s = slugify(c.name)
+    return s.includes(slug) || slug.includes(s)
+  })
+
+  return relaxed?.id
 })
 
-// Productos en oferta: solo los que tienen descuento real (originalPrice > price)
-const offerProducts = computed(() => {
-  if (allProducts.value.length === 0) return []
-  return allProducts.value.filter((p: Product) =>
-    p.images &&
-    p.images.length > 0 &&
-    p.status &&
-    typeof p.originalPrice === 'number' &&
-    p.originalPrice > 0 &&
-    p.price > 0 &&
-    p.originalPrice > p.price
-  )
+const currentCategory = computed(() => {
+  const id = currentCategoryId.value
+  if (id) {
+    const byId = categories.value.find(c => c.id === id)
+    if (byId) return byId
+  }
+  return categories.value.find(c => slugify(c.name) === props.slug)
 })
 
-const productsForPage = computed(() => (isGlobalSearch.value ? allProducts.value : offerProducts.value))
+const pageTitle = computed(() => props.title || currentCategory.value?.name || props.slug)
+const pageDescription = computed(() => currentCategory.value?.description || '')
 
-// Productos filtrados por búsqueda, precio y ordenamiento
-const filteredOfferProducts = computed(() => {
+const categoryImageCandidates = computed(() => {
+  const base = `/images/${props.slug}`
+  return [
+    `${base}.jpg`,
+    `${base}.jpeg`,
+    `${base}.png`,
+    `${base}.webp`,
+    'https://placehold.co/900x600?text=CATEGOR%C3%8DA'
+  ]
+})
+
+const categoryImageSrc = computed(() => {
+  return categoryImageCandidates.value[Math.min(categoryImageIndex.value, categoryImageCandidates.value.length - 1)]
+})
+
+function onCategoryImageError() {
+  const next = categoryImageIndex.value + 1
+  categoryImageIndex.value = Math.min(next, categoryImageCandidates.value.length - 1)
+}
+
+watch(
+  () => props.slug,
+  () => {
+    categoryImageIndex.value = 0
+    clearFilters()
+    error.value = null
+  }
+)
+
+function categoryName(categoryId: string): string {
+  return categories.value.find(c => c.id === categoryId)?.name?.toUpperCase() || ''
+}
+
+const baseProductsForCategory = computed(() => {
+  const id = currentCategoryId.value
+  if (!id) return []
+  return availableProducts.value.filter(p => p.category === id)
+})
+
+const filteredProducts = computed(() => {
   const q = searchTerm.value.trim().toLowerCase()
-  let list = productsForPage.value
 
-  // Filtro de búsqueda
+  let list = baseProductsForCategory.value
+
   if (q) {
     list = list.filter(p => {
       const name = p.name.toLowerCase()
@@ -226,7 +249,7 @@ const filteredOfferProducts = computed(() => {
     })
   }
 
-  // Filtro de precio
+  // Filtro de precio (sin filtros de categoría/material)
   list = list.filter(p => {
     const price = p.price
     switch (selectedPriceRange.value) {
@@ -243,7 +266,6 @@ const filteredOfferProducts = computed(() => {
     }
   })
 
-  // Ordenamiento
   if (sortBy.value === 'price-asc') {
     return [...list].sort((a, b) => a.price - b.price)
   }
@@ -254,15 +276,31 @@ const filteredOfferProducts = computed(() => {
   return list
 })
 
-function categoryNameById(categoryId: string): string {
-  return categories.value.find(cat => cat.id === categoryId)?.name?.toUpperCase() || ''
+function addProductToCart(p: Product) {
+  // Construir características del producto
+  const characteristics: string[] = []
+  if (p.colors && p.colors.length > 0) {
+    // Agregar todos los colores disponibles
+    characteristics.push(...p.colors)
+  }
+
+  addToCart({
+    id: p.id,
+    name: p.name,
+    price: p.price,
+    image: p.images?.[0] || '',
+    category: categoryName(p.category),
+    description: p.description,
+    inStock: p.status === 'available',
+    originalPrice: p.originalPrice
+  }, 1, p.colors?.[0], characteristics)
 }
 
-function hasRealDiscount(p: Product): boolean {
-  return typeof p.originalPrice === 'number' && p.originalPrice > 0 && p.originalPrice > p.price
+function openQuickView(p: Product) {
+  quickView.open(p)
 }
 
-function getStatusText(status: string): string {
+function getStatusText(status: string) {
   switch (status) {
     case 'available':
       return 'Disponible'
@@ -275,7 +313,7 @@ function getStatusText(status: string): string {
   }
 }
 
-function getStatusClass(status: string): string {
+function getStatusClass(status: string) {
   switch (status) {
     case 'available':
       return 'status-available'
@@ -290,47 +328,23 @@ function getStatusClass(status: string): string {
 
 function clearFilters() {
   searchTerm.value = ''
-  selectedPriceRange.value = 'all'
   sortBy.value = 'featured'
-}
-
-function addProductToCart(p: Product) {
-  const categoryName = categories.value.find(cat => cat.id === p.category)?.name || 'Ofertas'
-  
-  // Construir características del producto
-  const characteristics: string[] = []
-  if (p.colors && p.colors.length > 0) {
-    // Agregar todos los colores disponibles
-    characteristics.push(...p.colors)
-  }
-  
-  addToCart({
-    id: p.id,
-    name: p.name,
-    price: p.price,
-    image: p.images?.[0] || '',
-    category: categoryName,
-    description: p.description,
-    inStock: p.status === 'available',
-    originalPrice: p.originalPrice
-  }, 1, p.colors?.[0], characteristics)
+  selectedPriceRange.value = 'all'
 }
 
 onMounted(async () => {
+  loading.value = true
+  error.value = null
+
   try {
-    isLoadingProducts.value = true
-    error.value = null
     if (categories.value.length === 0) {
       await loadCategories()
     }
-    await Promise.all([
-      loadProducts(),
-      loadShowcaseProducts()
-    ])
+    await loadProducts()
   } catch (e) {
     error.value = e instanceof Error ? e.message : 'Error al cargar productos'
   } finally {
-    isLoadingProducts.value = false
+    loading.value = false
   }
 })
 </script>
@@ -583,49 +597,36 @@ onMounted(async () => {
   display: block;
 }
 
-/* Badge de descuento en la imagen */
 .discount-badge-image {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
   background: linear-gradient(135deg, #10b981, #059669);
   color: white;
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
   border-radius: 0.4rem;
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
   z-index: 2;
 }
 
-/* Overlay de no disponible */
-.out-of-stock-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
-  font-size: 1.1rem;
-  z-index: 3;
-}
-
-/* Badge de estado en esquina inferior izquierda */
 .product-status-badge {
   position: absolute;
   bottom: 0.5rem;
   left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.5rem;
   font-size: 0.7rem;
   font-weight: 700;
-  padding: 0.25rem 0.5rem;
   border-radius: 0.4rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   z-index: 2;
-  text-transform: uppercase;
 }
 
 .product-status-badge.status-available {
@@ -633,13 +634,13 @@ onMounted(async () => {
   color: white;
 }
 
-.product-status-badge.status-coming-soon {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+.product-status-badge.status-out-of-stock {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
 }
 
-.product-status-badge.status-out-of-stock {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
+.product-status-badge.status-coming-soon {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
   color: white;
 }
 
@@ -667,17 +668,23 @@ onMounted(async () => {
   color: rgba(15, 23, 42, 0.9);
 }
 
-.price {
+.price-section {
   margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.price {
   font-weight: 900;
   color: rgba(215, 172, 67, 0.95);
 }
 
 .original-price {
-  font-size: 0.85rem;
-  color: rgba(15, 23, 42, 0.5);
+  font-size: 0.9rem;
   text-decoration: line-through;
-  margin-top: 0.35rem;
+  color: rgba(15, 23, 42, 0.45);
+  font-weight: 600;
 }
 
 .add {

@@ -57,32 +57,12 @@ The theme system uses CSS custom properties that automatically switch based on t
 
 ### Brand Colors (Theme Independent)
 
-**CCI Group Official Colors**
-
 ```css
-/* Azul CCI - Color primario para textos y elementos serios */
---primary-blue: #001A70
---primary-blue-dark: #000f47
---primary-blue-light: #1a3a9f
---primary-blue-alpha-30: rgba(0, 26, 112, 0.3)
---primary-blue-alpha-40: rgba(0, 26, 112, 0.4)
---primary-blue-alpha-60: rgba(0, 26, 112, 0.6)
---primary-blue-alpha-80: rgba(0, 26, 112, 0.8)
-
-/* Rojo CCI - Color secundario para CTAs y énfasis */
---primary-red: #EE2A31
---primary-red-dark: #D41F26
---primary-red-light: #f24149
---primary-red-alpha-30: rgba(238, 42, 49, 0.3)
---primary-red-alpha-40: rgba(238, 42, 49, 0.4)
---primary-red-alpha-60: rgba(238, 42, 49, 0.6)
---primary-red-alpha-80: rgba(238, 42, 49, 0.8)
-
-/* Gradientes oficiales de CCI */
---primary-gradient: linear-gradient(135deg, #EE2A31 0%, #001A70 100%)
---primary-gradient-hover: linear-gradient(135deg, #001A70 0%, #EE2A31 100%)
---primary-gradient-blue: linear-gradient(135deg, #001A70 0%, #1a3a9f 100%)
---primary-gradient-red: linear-gradient(135deg, #EE2A31 0%, #D41F26 100%)
+--primary-color: #9b3b32 --primary-color-dark: #7a2e27 --primary-color-light: #b8453a
+  --primary-color-alpha-30: rgba(155, 59, 50, 0.3) --primary-color-alpha-40: rgba(155, 59, 50, 0.4)
+  --primary-color-alpha-60: rgba(155, 59, 50, 0.6) --primary-color-alpha-80: rgba(155, 59, 50, 0.8)
+  --primary-gradient: linear-gradient(135deg, #9b3b32 0%, #7a2e27 100%)
+  --primary-gradient-hover: linear-gradient(135deg, #7a2e27 0%, #9b3b32 100%);
 ```
 
 ## How to Use Theme Variables

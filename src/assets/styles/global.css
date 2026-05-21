@@ -1,61 +1,46 @@
-/* CCI Group - Paleta de colores: Azul (#001A70) y Rojo (#EE2A31) */
+/* SOYDANI - Paleta de colores Rojo, Negro, Blanco */
 :root {
-  /* Colores principales de CCI Group */
-  --primary-red: #EE2A31;       /* Rojo CCI principal */
-  --secondary-red: #f24149;     /* Rojo claro */
-  --tertiary-red: #D41F26;      /* Rojo medio */
-  --dark-red: #C41620;          /* Rojo oscuro */
-  --primary-blue: #001A70;      /* Azul CCI principal */
+  /* Colores principales - Rojo, Negro, Blanco */
+  --primary-red: #DC2626;       /* Rojo principal */
+  --secondary-red: #EF4444;     /* Rojo claro */
+  --tertiary-red: #B91C1C;      /* Rojo medio */
+  --dark-red: #991B1B;          /* Rojo oscuro */
   --white: #ffffff;             /* Blanco */
   --black: #000000;             /* Negro puro */
 
-  /* Paleta de marca CCI Group */
-  --brand-primary: #EE2A31;            /* Rojo CCI */
-  --brand-primary-blue: #001A70;       /* Azul CCI */
-  --brand-primary-contrast: #ffffff;   /* Texto sobre superficies de marca */
+  /* Paleta de marca SOYDANI */
+  --brand-primary: #DC2626;            /* Rojo principal */
+  --brand-primary-contrast: #ffffff;   /* Texto sobre superficies rojas */
   --brand-bg-start: #000000;           /* Negro puro inicio */
   --brand-bg-end: #1a1a1a;             /* Gris muy oscuro fin */
   --brand-surface: #0a0a0a;            /* Superficie cards/nav */
-  --brand-border: rgba(238, 42, 49, 0.3); /* Bordes rojos sutiles */
-  --brand-accent: #EE2A31;             /* Acento rojo CCI */
-  --brand-accent-alt: #f24149;         /* Acento rojo claro */
-  --brand-accent-glow: rgba(238, 42, 49, 0.5);
-  --brand-gradient: linear-gradient(135deg, #EE2A31 0%, #001A70 100%);
+  --brand-border: rgba(220, 38, 38, 0.3); /* Bordes rojos sutiles */
+  --brand-accent: #DC2626;             /* Acento rojo */
+  --brand-accent-alt: #EF4444;         /* Acento rojo claro */
+  --brand-accent-glow: rgba(220, 38, 38, 0.5);
+  --brand-gradient: linear-gradient(135deg, var(--brand-bg-start) 0%, var(--brand-bg-end) 100%);
   --brand-accent-gradient: linear-gradient(135deg, var(--brand-accent) 0%, var(--brand-accent-alt) 100%);
   --brand-danger: #ef4444;
   --brand-success: #10b981;
   --brand-warning: #f59e0b;
-  --brand-info: #EE2A31;
+  --brand-info: #DC2626;
 
   /* Colores adicionales */
   --light-gray: #f5f5f5;
   --medium-gray: #757575;
   --dark-gray: #424242;
 
-  /* Neutrales profesionales extendidos */
-  --slate-50: #f8fafc;
-  --slate-100: #f1f5f9;
-  --slate-200: #e2e8f0;
-  --slate-300: #cbd5f5;
-  --slate-600: #475569;
-  --slate-900: #0f172a;
-
-  /* Colores de acento adicionales */
-  --accent-amber: #f59e0b;
-  --accent-emerald: #10b981;
-  --accent-cyan: #06b6d4;
-
   /* Colores de estado */
   --success: #4caf50;
   --warning: #ff9800;
-  --danger: #EE2A31;
+  --danger: #DC2626;
   --info: var(--secondary-red);
 
   /* Sombras modernas con efecto depth */
-  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(238, 42, 49, 0.1);
-  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(238, 42, 49, 0.15);
-  --shadow-heavy: 0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(238, 42, 49, 0.2);
-  --shadow-hover: 0 16px 48px rgba(238, 42, 49, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(220, 38, 38, 0.1);
+  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(220, 38, 38, 0.15);
+  --shadow-heavy: 0 12px 32px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(220, 38, 38, 0.2);
+  --shadow-hover: 0 16px 48px rgba(220, 38, 38, 0.25), 0 8px 24px rgba(0, 0, 0, 0.2);
 
   /* Bordes redondeados modernos */
   --border-radius-sm: 6px;
@@ -156,8 +141,7 @@
 }
 
 body {
-  /* Usar la tipografía global definida en main.css (Raleway como base) */
-  font-family: var(--font-family);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: var(--app-bg-primary);
   color: var(--app-text-primary);
   line-height: 1.6;
@@ -284,7 +268,6 @@ body {
   margin-bottom: 0.5rem;
   line-height: 1.4;
   display: -webkit-box;
-  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;

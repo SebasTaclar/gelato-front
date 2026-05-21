@@ -1,19 +1,18 @@
 <template>
-  <div class="accesorios-page">
-    <!-- Hero Banner Section con Carrusel -->
+  <div class="mac-page">
+    <!-- Hero Banner con Carrusel Dinámico -->
     <section class="hero-banner">
       <div class="carousel-container">
-        <!-- Slides del carrusel dinámicos desde productos de showcase de Accesorios -->
         <div class="carousel-track" :style="{ transform: `translateX(-${currentSlide * 100}%)` }">
           <div
-            v-for="product in accesoriosShowcaseProducts"
+            v-for="product in macShowcaseProducts"
             :key="product.id"
             class="carousel-slide"
           >
             <div class="slide-content">
               <div class="slide-text">
                 <h1 class="slide-title">{{ product.name }}</h1>
-                <p class="slide-subtitle">{{ product.description }}</p>
+                <p class="slide-description">{{ product.description }}</p>
                 <button @click="scrollToProducts" class="shop-now-btn">
                   Compra ahora
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -23,11 +22,7 @@
                 </button>
               </div>
               <div class="slide-image">
-                <img
-                  :src="product.image"
-                  :alt="product.name"
-                  loading="lazy"
-                />
+                <img :src="product.image" :alt="product.name" loading="lazy" decoding="async" />
               </div>
             </div>
           </div>
@@ -35,25 +30,24 @@
 
         <!-- Controles del carrusel -->
         <button class="carousel-btn prev" @click="prevSlide" aria-label="Anterior">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="15 18 9 12 15 6"></polyline>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m15 18-6-6 6-6"/>
           </svg>
         </button>
         <button class="carousel-btn next" @click="nextSlide" aria-label="Siguiente">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="9 18 15 12 9 6"></polyline>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m9 18 6-6-6-6"/>
           </svg>
         </button>
 
         <!-- Indicadores -->
         <div class="carousel-indicators">
           <button
-            v-for="(product, index) in accesoriosShowcaseProducts"
-            :key="product.id"
-            class="indicator"
-            :class="{ active: currentSlide === index }"
+            v-for="(_, index) in macShowcaseProducts"
+            :key="index"
+            :class="['indicator', { active: currentSlide === index }]"
             @click="goToSlide(index)"
-            :aria-label="`Ir a ${product.name}`"
+            :aria-label="`Ir a slide ${index + 1}`"
           ></button>
         </div>
       </div>
@@ -67,9 +61,9 @@
           <p>Cargando productos...</p>
         </div>
 
-        <div v-else-if="accesoriosProducts.length > 0" class="products-container">
+        <div v-else-if="macProducts.length > 0" class="products-container">
           <div
-            v-for="product in accesoriosProducts"
+            v-for="product in macProducts"
             :key="product.id"
             class="product-card-modern"
             @click="handleAddToCart(product)"
@@ -97,7 +91,6 @@
                 </span>
               </div>
 
-
               <button class="product-btn" @click.stop="handleAddToCart(product)">
                 Comprar
               </button>
@@ -106,89 +99,24 @@
         </div>
 
         <div v-else class="empty-state">
-          <p>No hay Accesorioss disponibles en este momento</p>
+          <p>No hay productos Mac disponibles en este momento</p>
         </div>
       </div>
     </section>
 
-    <!-- Sección Informativa -->
+    <!-- Sección de Información -->
     <section class="info-section">
       <div class="container">
         <div class="info-content-centered">
-          <h2 class="info-title">¿Por qué elegir nuestros Accesorios?</h2>
+          <h2 class="info-title">Por qué elegir Mac</h2>
           <p class="info-text">
-            Completa tu experiencia Apple con accesorios diseñados para funcionar en perfecta armonía
-            con tus dispositivos. Desde AirPods Pro con cancelación de ruido activa y audio espacial,
-            hasta Magic Keyboard, Mouse y fundas protectoras Premium. Cada accesorio Apple combina
-            funcionalidad excepcional con diseño elegante. Carga inalámbrica MagSafe, cables Lightning
-            y USB-C certificados, y mucho más para sacar el máximo provecho de tu ecosistema Apple.
+            Mac combina potencia excepcional con un diseño elegante. Equipado con los revolucionarios chips de Apple Silicon,
+            ofrece un rendimiento increíble para edición de video, diseño gráfico, desarrollo y más. macOS proporciona una
+            experiencia fluida y segura, perfectamente integrada con tu ecosistema Apple.
           </p>
         </div>
       </div>
     </section>
-
-    <!-- Sección de Características Destacadas
-    <section class="features-section">
-      <div class="container">
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon">
-              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                <line x1="12" y1="18" x2="12.01" y2="18"></line>
-              </svg>
-            </div>
-            <h3 class="feature-title">Dynamic Island</h3>
-            <p class="feature-text">
-              Una nueva forma de interactuar con tu Accesorios. Notificaciones en vivo,
-              alertas y actividades en una experiencia fluida y mágica.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <path d="M12 6v6l4 2"></path>
-              </svg>
-            </div>
-            <h3 class="feature-title">Chip A18 Pro</h3>
-            <p class="feature-text">
-              Rendimiento extremo. El chip más avanzado en un smartphone con
-              velocidades impresionantes y eficiencia energética sin precedentes.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-            </div>
-            <h3 class="feature-title">Sistema de Cámaras Pro</h3>
-            <p class="feature-text">
-              Captura cada momento con calidad cinematográfica. Fotos de 48MP,
-              modo nocturno mejorado y video 4K ProRes.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="feature-icon">
-              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-              </svg>
-            </div>
-            <h3 class="feature-title">Batería de Todo el Día</h3>
-            <p class="feature-text">
-              Hasta 29 horas de reproducción de video. Carga rápida,
-              carga inalámbrica y compatible con MagSafe.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section> -->
 
     <!-- Carrito global renderizado en App.vue -->
 
@@ -227,7 +155,7 @@
           <div class="modal-info">
             <h2 class="modal-title">{{ selectedProduct?.name }}</h2>
             <div class="modal-category">
-              Accesorios
+              Mac
             </div>
             <p class="modal-description">
               {{ selectedProduct?.description }}
@@ -289,64 +217,62 @@ import { useProducts } from '@/composables/useProducts'
 import { useCategories } from '@/composables/useCategories'
 import { useCart } from '@/composables/useCart'
 import type { Product } from '@/composables/useProducts'
+
+
 import { useHead } from '@vueuse/head'
 
-const { regularProducts, loadProducts, showcaseProducts, loadShowcaseProducts } = useProducts()
-const { categories, loadCategories } = useCategories()
-
-
-
-
 useHead({
-  title: 'Accesorios Apple Originales | Apple Store Pro',
+  title: 'MacBook Air, MacBook Pro | Apple Store Pro',
   meta: [
     {
       name: 'description',
-      content: 'Compra y descubre nuestra colección de accesorios originales Apple: Apple Pencil, teclados, airtag y más. Tienda oficial Apple Store Pro Colombia.'
+      content: 'Descubre la potencia del nuevo MacBook Air, MacBook Pro y mucho más. Tienda oficial Apple Store Pro Colombia.'
     },
-    { property: 'og:title', content: 'Accesorios Apple Originales | Apple Store Pro' },
-    { property: 'og:description', content: 'Compra y descubre nuestra colección de accesorios originales Apple: Apple Pencil, teclados, airtag y más. Tienda oficial Apple Store Pro Colombia.' },
-    { property: 'og:image', content: 'https://www.mistorepro.com/images/accesorios.jpg' },
-    { property: 'og:url', content: 'https://www.mistorepro.com/accesorios' },
+    { property: 'og:title', content: 'MacBook Air, MacBook Pro | Apple Store Pro' },
+    { property: 'og:description', content: 'Descubre la potencia del nuevo MacBook Air, MacBook Pro y mucho más. Tienda oficial Apple Store Pro Colombia.' },
+    { property: 'og:image', content: 'https://www.mistorepro.com/images/macbookpro.jpg' },
+    { property: 'og:url', content: 'https://www.mistorepro.com/mac' },
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:image', content: 'https://www.mistorepro.com/images/accesorios.jpg' }
+    { name: 'twitter:image', content: 'https://www.mistorepro.com/images/macbookpro.jpg' }
   ]
 })
 
+const { regularProducts, loadProducts, showcaseProducts, loadShowcaseProducts } = useProducts()
+const { categories, loadCategories } = useCategories()
 
 const { addToCart } = useCart()
 
 const isLoadingProducts = ref(true)
 
-// Carrusel dinámico basado en productos de showcase de Accesorios
+// Carrusel dinámico basado en productos de showcase de Mac
 const currentSlide = ref(0)
 let autoplayInterval: number | null = null
 
-// Obtener la categoría de Accesorios
-const accesoriosCategory = computed(() => {
+const macCategory = computed(() => {
   return categories.value.find(cat =>
-    cat.name.toLowerCase().includes('accesorio') ||
-    cat.name.toLowerCase().includes('accessory')
+    cat.name.toLowerCase().includes('mac') ||
+    cat.name.toLowerCase().includes('macbook') ||
+    cat.name.toLowerCase().includes('imac')
   )
 })
 
-// Filtrar productos showcase de Accesorios para el carrusel
-const accesoriosShowcaseProducts = computed(() => {
-  if (!accesoriosCategory.value) return []
+// Filtrar productos showcase de Mac para el carrusel
+const macShowcaseProducts = computed(() => {
+  if (!macCategory.value) return []
 
   return showcaseProducts.value.filter(p =>
-    p.category === accesoriosCategory.value!.id ||
-    p.category.toLowerCase().includes('accesorio')
+    p.category === macCategory.value!.id ||
+    p.category.toLowerCase().includes('mac')
   )
 })
 
 const nextSlide = () => {
-  const total = accesoriosShowcaseProducts.value.length || 1
+  const total = macShowcaseProducts.value.length || 1
   currentSlide.value = (currentSlide.value + 1) % total
 }
 
 const prevSlide = () => {
-  const total = accesoriosShowcaseProducts.value.length || 1
+  const total = macShowcaseProducts.value.length || 1
   currentSlide.value = (currentSlide.value - 1 + total) % total
 }
 
@@ -368,13 +294,13 @@ const stopAutoplay = () => {
   }
 }
 
-// Filtrar productos de Accesorios
-const accesoriosProducts = computed(() => {
-  if (!accesoriosCategory.value) return []
+// Filtrar productos de Mac
+const macProducts = computed(() => {
+  if (!macCategory.value) return []
 
   return regularProducts.value
     .filter(p => {
-      const categoryMatch = p.category === accesoriosCategory.value!.id
+      const categoryMatch = p.category === macCategory.value!.id
       const statusMatch = p.status === 'available' || p.status === 'coming-soon'
       return categoryMatch && statusMatch
     })
@@ -403,6 +329,11 @@ const closeModal = () => {
   showModal.value = false
   selectedProduct.value = null
   modalSelectedColor.value = ''
+}
+
+// Función para agregar al carrito (abre el modal)
+const handleAddToCart = (product: Product) => {
+  openProductModal(product)
 }
 
 // Función para hacer scroll a la sección de productos
@@ -436,11 +367,6 @@ const addToCartFromModal = () => {
     addToCart(mappedProduct, 1, modalSelectedColor.value || undefined)
     closeModal()
   }
-}
-
-// Función obsoleta - ahora abre el modal
-const handleAddToCart = (product: Product) => {
-  openProductModal(product)
 }
 
 // Función para obtener el texto del estado del producto
@@ -517,7 +443,7 @@ onMounted(async () => {
     await loadShowcaseProducts()
     startAutoplay()
   } catch (error) {
-    console.error('Error cargando datos de Accesorios:', error)
+    console.error('Error cargando datos de Mac:', error)
   } finally {
     isLoadingProducts.value = false
   }
@@ -531,7 +457,7 @@ onUnmounted(() => {
 
 <style scoped>
 /* === TEMA OSCURO === */
-.accesorios-page {
+.mac-page {
   min-height: 100vh;
   background: #000000;
   color: #f5f5f7;
@@ -614,6 +540,14 @@ onUnmounted(() => {
   animation: fadeInUp 0.6s ease-out 0.2s both;
 }
 
+.slide-description {
+  font-size: 1.0rem;
+  color: #a1a1a6;
+  line-height: 1.7;
+  max-width: 480px;
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
 .shop-now-btn {
   display: inline-flex;
   align-items: center;
@@ -649,14 +583,6 @@ onUnmounted(() => {
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(5px); }
-}
-
-.slide-description {
-  font-size: 1.0rem;
-  color: #a1a1a6;
-  line-height: 1.7;
-  max-width: 480px;
-  animation: fadeInUp 0.6s ease-out 0.3s both;
 }
 
 .slide-image {
@@ -845,6 +771,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .product-image {
@@ -1334,7 +1261,7 @@ onUnmounted(() => {
   cursor: pointer;
   box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
   transition: all 0.3s ease;
-  z-index: 1000;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2051,6 +1978,4 @@ onUnmounted(() => {
   }
 }
 </style>
-
-
 
