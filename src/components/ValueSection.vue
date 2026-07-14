@@ -151,24 +151,8 @@
     <div class="section-inner">
       <div class="allies-label">Marcas que confían en ODA GELATO</div>
       <div class="allies-track">
-        <div class="allies-inner">
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsw7PbuqPBqU1cRzf5MseY9kuRi9cWqU33TQ&s" alt="ARA" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTJP-YY3LLiclA9BeckLCb0MO-M6Y1kY_X-g&s" alt="CREMATO" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwtH24E7IB8bnQEdi4vLSsWRQUJbwvItYgQA&s" alt="PEOPS" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsw7PbuqPBqU1cRzf5MseY9kuRi9cWqU33TQ&s" alt="CREMATO" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiLKt-QXQlxeNidWVo-sPxLVpvZCR-sj0nmw&s" alt="FREDDO" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsw7PbuqPBqU1cRzf5MseY9kuRi9cWqU33TQ&s" alt="ARA" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwtH24E7IB8bnQEdi4vLSsWRQUJbwvItYgQA&s" alt="PEOPS" class="ally-img" /></div>
-
-          <!-- Repeat for seamless -->
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsw7PbuqPBqU1cRzf5MseY9kuRi9cWqU33TQ&s" alt="ARA" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTJP-YY3LLiclA9BeckLCb0MO-M6Y1kY_X-g&s" alt="CREMATO" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwtH24E7IB8bnQEdi4vLSsWRQUJbwvItYgQA&s" alt="PEOPS" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsw7PbuqPBqU1cRzf5MseY9kuRi9cWqU33TQ&s" alt="CREMATO" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiLKt-QXQlxeNidWVo-sPxLVpvZCR-sj0nmw&s" alt="FREDDO" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsw7PbuqPBqU1cRzf5MseY9kuRi9cWqU33TQ&s" alt="ARA" class="ally-img" /></div>
-          <div class="ally-logo"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwtH24E7IB8bnQEdi4vLSsWRQUJbwvItYgQA&s" alt="PEOPS" class="ally-img" /></div>
-
+        <div class="allies-inner allies-single">
+          <div class="ally-logo"><img src="https://res.cloudinary.com/dlwzazojt/image/upload/v1784053092/TP_Logo_Primary_red_rb4bqp.png" alt="TP" class="ally-img" /></div>
         </div>
       </div>
     </div>
@@ -373,15 +357,23 @@ onBeforeUnmount(() => {
   animation:allies 20s linear infinite;
   width:max-content;
 }
+.allies-single{
+  animation:none;
+  width:auto;
+  justify-content:center;
+  margin:0 auto;
+}
 @keyframes allies{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .ally-logo{
-  height:40px;width:120px;
-  background:var(--gray-light);
+  height:60px;width:180px;
+  background:transparent;
   border-radius:var(--r-sm);
   display:flex;align-items:center;justify-content:center;
   flex-shrink:0;
-  filter:grayscale(1);opacity:.5;
   transition:filter .3s,opacity .3s;
+}
+.allies-single .ally-logo{
+  filter:none;opacity:1;
 }
 .ally-logo:hover{filter:grayscale(0);opacity:1}
 .ally-placeholder{font-family:var(--ff-display);font-size:.62rem;font-weight:700;color:var(--gray);letter-spacing:.08em;text-transform:uppercase}
