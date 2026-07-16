@@ -281,6 +281,7 @@ const messages = {
 		},
 		footerModal: {
 			closeModal: 'Cerrar',
+			enviando: 'Enviando…',
 			sendMessage: 'Enviar Mensaje →',
 			sendApplication: 'Enviar Postulación →',
 			sendInfo: 'Enviar Información →',
@@ -703,6 +704,7 @@ const messages = {
 		},
 		footerModal: {
 			closeModal: 'Close',
+			enviando: 'Sending…',
 			sendMessage: 'Send Message →',
 			sendApplication: 'Send Application →',
 			sendInfo: 'Send Information →',

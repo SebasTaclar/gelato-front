@@ -115,10 +115,23 @@
           <label class="form-label">{{ t('contact.mensaje') }}</label>
           <textarea class="form-textarea" :placeholder="t('contact.mensajePlaceholder')" v-model="formData.mensaje"></textarea>
         </div>
-        <button class="btn-submit" type="button" @click="handleContactSubmit">
-          {{ t('contact.btnSubmit') }}
+        <button class="btn-submit" type="button" @click="handleContactSubmit" :disabled="isSending">
+          {{ isSending ? t('footerModal.enviando') : t('contact.btnSubmit') }}
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Toast de éxito -->
+  <div class="success-toast" v-if="showSuccess">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2.5">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </div>
+    <div class="success-content">
+      <div class="success-title">{{ t('footerModal.successTitle') }}</div>
+      <div class="success-desc">{{ t('footerModal.successDesc') }}</div>
     </div>
   </div>
 </section>
@@ -151,6 +164,8 @@ const errors = reactive({
   correo: ''
 })
 
+const showSuccess = ref(false)
+
 const clearError = (field: keyof typeof errors) => {
   errors[field] = ''
 }
@@ -181,6 +196,7 @@ const handleContactSubmit = async () => {
 
   const success = await sendEmail({
     to_email: EMAIL_RECIPIENTS.COTIZACION,
+    form_type: 'Solicitud de Cotización',
     subject: 'Nueva solicitud de cotización',
     from_name: formData.nombre,
     from_email: formData.correo,
@@ -193,7 +209,7 @@ const handleContactSubmit = async () => {
   })
 
   if (success) {
-    alert('¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto.')
+    showSuccess.value = true
 
     formData.nombre = ''
     formData.empresa = ''
@@ -201,6 +217,8 @@ const handleContactSubmit = async () => {
     formData.telefono = ''
     formData.necesidad = ''
     formData.mensaje = ''
+
+    setTimeout(() => { showSuccess.value = false }, 4000)
   }
 }
 
@@ -400,6 +418,26 @@ onBeforeUnmount(() => {
   box-shadow:0 8px 24px rgba(208,79,109,.3);
 }
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(208,79,109,.45)}
+.btn-submit:disabled{opacity:.7;cursor:not-allowed;transform:none}
+
+.success-toast{
+  position:fixed;bottom:32px;right:32px;
+  display:flex;align-items:center;gap:14px;
+  padding:16px 24px;
+  background:var(--white);border-radius:12px;
+  box-shadow:0 10px 40px rgba(0,0,0,.15);
+  z-index:10000;animation:toastIn .4s ease;
+  border-left:4px solid #22c55e;
+}
+@keyframes toastIn{from{opacity:0;transform:translateY(20px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.success-icon{width:40px;height:40px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.success-icon svg{color:#22c55e}
+.success-title{font-family:var(--ff-display);font-size:.88rem;font-weight:700;color:var(--secondary);margin-bottom:2px}
+.success-desc{font-size:.78rem;color:var(--gray);line-height:1.4}
+
+@media(max-width:768px){
+  .success-toast{bottom:16px;right:16px;left:16px}
+}
 
 .map-location{margin-bottom:8px}
 .map-label{

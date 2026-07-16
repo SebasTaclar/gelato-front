@@ -11,12 +11,12 @@ const EMAILJS_TEMPLATE_ID = 'template_6o1rbpj'
 const EMAIL_TEST = 'dataor52@gmail.com'
 
 export const EMAIL_RECIPIENTS = {
-  SERVICIO_CLIENTE: EMAIL_TEST,               // real: servicioalcliente@odagelato.com.co
-  SER_CLIENTE_ALIADO: EMAIL_TEST,             // real: gerencia.comercial@odagelato.com.co
-  CONTABILIDAD: EMAIL_TEST,                   // real: contador@odagelato.com.co
-  PROVEEDOR: EMAIL_TEST,                      // real: compras@odagelato.com.co
-  VACANTES: EMAIL_TEST,                       // real: coordinador.gestionhumana@odagelato.com.co
-  COTIZACION: EMAIL_TEST,                     // real: servicioalcliente@odagelato.com.co
+  SERVICIO_CLIENTE: "servicioalcliente@odagelato.com.co",               // real: servicioalcliente@odagelato.com.co
+  SER_CLIENTE_ALIADO: "gerencia.comercial@odagelato.com.co",             // real: gerencia.comercial@odagelato.com.co
+  CONTABILIDAD: "contador@odagelato.com.co",                   // real: contador@odagelato.com.co
+  PROVEEDOR: "compras@odagelato.com.co",                      // real: compras@odagelato.com.co
+  VACANTES: "coordinador.gestionhumana@odagelato.com.co",                       // real: coordinador.gestionhumana@odagelato.com.co
+  COTIZACION: "servicioalcliente@odagelato.com.co",                     // real: servicioalcliente@odagelato.com.co
 } as const
 
 // ══════════════════════════════════════════
@@ -26,6 +26,7 @@ export const EMAIL_RECIPIENTS = {
 export interface EmailData {
   to_email: string
   subject: string
+  form_type: string
   from_name: string
   from_email: string
   phone: string
