@@ -6,18 +6,18 @@
     <div class="mq-item">Maquila Industrial <span class="mq-sep">✦</span></div>
     <div class="mq-item">19 Años de Experiencia <span class="mq-sep">✦</span></div>
     <div class="mq-item">Tecnología Italiana <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Exportación USA <span class="mq-sep">✦</span></div>
+    <div class="mq-item">Habilitados para exportar a USA <span class="mq-sep">✦</span></div>
     <div class="mq-item">Certificación FDA <span class="mq-sep">✦</span></div>
-    <div class="mq-item">30M Litros al Año <span class="mq-sep">✦</span></div>
+    <div class="mq-item">30 Millones de Litros al Año <span class="mq-sep">✦</span></div>
     <div class="mq-item">Laboratorio Propio <span class="mq-sep">✦</span></div>
     <!-- repeat for seamless loop -->
     <div class="mq-item">Private Label <span class="mq-sep">✦</span></div>
     <div class="mq-item">Maquila Industrial <span class="mq-sep">✦</span></div>
     <div class="mq-item">19 Años de Experiencia <span class="mq-sep">✦</span></div>
     <div class="mq-item">Tecnología Italiana <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Exportación USA <span class="mq-sep">✦</span></div>
+    <div class="mq-item">Habilitados para exportar a USA <span class="mq-sep">✦</span></div>
     <div class="mq-item">Certificación FDA <span class="mq-sep">✦</span></div>
-    <div class="mq-item">30M Litros al Año <span class="mq-sep">✦</span></div>
+    <div class="mq-item">30 Millones de Litros al Año <span class="mq-sep">✦</span></div>
     <div class="mq-item">Laboratorio Propio <span class="mq-sep">✦</span></div>
   </div>
 </div>

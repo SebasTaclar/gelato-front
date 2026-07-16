@@ -27,7 +27,7 @@
     <div class="footer-col">
       <h4>Documentos</h4>
       <ul>
-        <li><a href="/public/docs/politica-calidad.pdf" target="_blank">Política de Calidad</a></li>
+        <li><a href="/docs/politica-calidad.pdf" target="_blank">Política de Calidad</a></li>
         <li><a href="/public/docs/politica-inocuidad.pdf" target="_blank">Política de Inocuidad</a></li>
         <li><a href="/public/docs/terminos-legales.pdf" target="_blank">Términos Legales</a></li>
         <li><a href="/public/docs/politica-privacidad.pdf" target="_blank">Política de Privacidad</a></li>
@@ -36,12 +36,101 @@
     <div class="footer-col">
       <h4>Contactos</h4>
       <ul>
-        <li><a href="mailto:servicioalcliente@odagelato.com.co">Servicio al Cliente</a></li>
-        <li><a href="mailto:gerencia.comercial@odagelato.com.co">Ser cliente / Aliado</a></li>
-        <li><a href="mailto:compras@odagelato.com.co">¿Quieres ser proveedor?</a></li>
-        <li><a href="mailto:coordinador.gestionhumana@odagelato.com.co">Trabaje con nosotros</a></li>
-        <li><a href="mailto:contador@odagelato.com.co">Contabilidad</a></li>
+        <li><a href="#" @click.prevent="openModal('Servicio al Cliente', 'servicioalcliente@odagelato.com.co')">Servicio al Cliente</a></li>
+        <li><a href="#" @click.prevent="openModal('Ser cliente / Aliado', 'gerencia.comercial@odagelato.com.co')">Ser cliente / Aliado</a></li>
+        <li><a href="#" @click.prevent="openModal('¿Quieres ser proveedor?', 'compras@odagelato.com.co')">¿Quieres ser proveedor?</a></li>
+        <li><a href="#" @click.prevent="openVacantesModal">Trabaje con nosotros</a></li>
+        <li><a href="#" @click.prevent="openModal('Contabilidad', 'contador@odagelato.com.co')">Contabilidad</a></li>
       </ul>
+    </div>
+  </div>
+
+  <!-- Modal de Contacto -->
+  <div class="modal-overlay" v-if="showModal" @click.self="closeModal">
+    <div class="modal-content">
+      <button class="modal-close" @click="closeModal">&times;</button>
+      <div class="modal-icon">
+        <svg v-if="!isVacantes" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+        <svg v-else viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      </div>
+      <h3 class="modal-title">{{ modalTitle }}</h3>
+
+      <!-- Formulario de Vacantes -->
+      <template v-if="isVacantes">
+        <p class="modal-subtitle">¡Únete a nuestro equipo! Envíanos tuhoja de vida</p>
+        <div class="vacantes-info">
+          <div class="vacante-item">
+            <span class="vacante-icon">🏭</span>
+            <div>
+              <div class="vacante-name">Producción</div>
+              <div class="vacante-desc">Operarios y ayudantes de planta</div>
+            </div>
+          </div>
+          <div class="vacante-item">
+            <span class="vacante-icon">📦</span>
+            <div>
+              <div class="vacante-name">Logística</div>
+              <div class="vacante-desc">Bodega y despachos</div>
+            </div>
+          </div>
+          <div class="vacante-item">
+            <span class="vacante-icon">👩‍💼</span>
+            <div>
+              <div class="vacante-name">Administración</div>
+              <div class="vacante-desc">Area comercial y administrativa</div>
+            </div>
+          </div>
+        </div>
+        <form @submit.prevent="submitModal">
+          <div class="modal-field">
+            <label class="modal-label">Nombre *</label>
+            <input class="modal-input" type="text" placeholder="Tu nombre completo" v-model="modalData.nombre" required>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Correo *</label>
+            <input class="modal-input" type="email" placeholder="correo@empresa.com" v-model="modalData.correo" required>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Teléfono *</label>
+            <input class="modal-input" type="tel" placeholder="+57 300 000 0000" v-model="modalData.telefono" required>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">¿En qué área te interesa?</label>
+            <select class="modal-input modal-select" v-model="modalData.mensaje">
+              <option value="">Selecciona una opción</option>
+              <option>Producción</option>
+              <option>Logística / Bodega</option>
+              <option>Administración / Comercial</option>
+              <option>Cualquier área</option>
+            </select>
+          </div>
+          <button class="modal-submit" type="submit">Enviar Postulación →</button>
+        </form>
+      </template>
+
+      <!-- Formulario de Contacto General -->
+      <template v-else>
+        <p class="modal-subtitle">Envíanos tu mensaje y te contactaremos pronto</p>
+        <form @submit.prevent="submitModal">
+          <div class="modal-field">
+            <label class="modal-label">Nombre *</label>
+            <input class="modal-input" type="text" placeholder="Tu nombre completo" v-model="modalData.nombre" required>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Correo *</label>
+            <input class="modal-input" type="email" placeholder="correo@empresa.com" v-model="modalData.correo" required>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Teléfono</label>
+            <input class="modal-input" type="tel" placeholder="+57 300 000 0000" v-model="modalData.telefono">
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Mensaje *</label>
+            <textarea class="modal-textarea" placeholder="Escribe tu mensaje..." v-model="modalData.mensaje" required></textarea>
+          </div>
+          <button class="modal-submit" type="submit">Enviar Mensaje →</button>
+        </form>
+      </template>
     </div>
   </div>
 
@@ -50,15 +139,71 @@
   <div class="footer-bottom">
     <p>© 2026 ODA GELATO S.A.S. | Desarrollado por <a href="https://www.dator.org" target="_blank" rel="noopener">DataOr</a></p>
     <div class="footer-legal-links">
-      <a href="/public/docs/politica-privacidad.pdf">Privacidad</a>
-      <a href="/public/docs/terminos-legales.pdf">Términos</a>
-      <a href="mailto:contador@odagelato.com.co">Contabilidad</a>
     </div>
   </div>
 </footer>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+
+const showModal = ref(false)
+const modalTitle = ref('')
+const modalEmail = ref('')
+const isVacantes = ref(false)
+
+const modalData = reactive({
+  nombre: '',
+  correo: '',
+  telefono: '',
+  mensaje: ''
+})
+
+const openModal = (title: string, email: string) => {
+  modalTitle.value = title
+  modalEmail.value = email
+  isVacantes.value = false
+  showModal.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+const openVacantesModal = () => {
+  modalTitle.value = 'Trabaje con Nosotros'
+  isVacantes.value = true
+  showModal.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+const closeModal = () => {
+  showModal.value = false
+  document.body.style.overflow = ''
+  modalData.nombre = ''
+  modalData.correo = ''
+  modalData.telefono = ''
+  modalData.mensaje = ''
+}
+
+const submitModal = () => {
+  const missing: string[] = []
+  if (!modalData.nombre.trim()) missing.push('Nombre')
+  if (!modalData.correo.trim()) missing.push('Correo')
+  if (!modalData.mensaje.trim()) missing.push('Mensaje')
+
+  if (missing.length > 0) {
+    alert(`Faltan los siguientes campos obligatorios:\n• ${missing.join('\n• ')}`)
+    return
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(modalData.correo)) {
+    alert('El correo electrónico no es válido')
+    return
+  }
+
+  alert(`¡Mensaje enviado exitosamente a ${modalTitle.value}! Te contactaremos pronto.`)
+  closeModal()
+}
+</script>
 
 <style scoped>
 /* ═══════════════════════════════════════════════
@@ -160,6 +305,116 @@
 .footer-legal-links{display:flex;gap:18px}
 .footer-legal-links a{font-size:.7rem;color:rgba(255,255,255,.2);transition:color .2s;text-decoration:none}
 .footer-legal-links a:hover{color:var(--primary)}
+
+/* Modal */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+  backdrop-filter:blur(4px);
+  animation:fadeIn .2s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.modal-content{
+  background:var(--white);
+  border-radius:var(--r-xl);
+  padding:40px;
+  max-width:440px;width:90%;
+  position:relative;
+  box-shadow:0 25px 60px rgba(0,0,0,.3);
+  animation:slideUp .3s ease;
+}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  background:none;border:none;
+  font-size:1.5rem;color:var(--gray);
+  cursor:pointer;
+  transition:color .2s;
+}
+.modal-close:hover{color:var(--secondary)}
+.modal-icon{
+  width:56px;height:56px;
+  background:var(--primary-wash);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+  border:1px solid rgba(118,180,242,.2);
+}
+.modal-icon svg{width:24px;height:24px;stroke:var(--primary-dark);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.modal-title{
+  font-family:var(--ff-display);
+  font-size:1.2rem;font-weight:700;
+  color:var(--secondary);text-align:center;
+  margin-bottom:4px;letter-spacing:-.02em;
+}
+.modal-subtitle{
+  font-size:.82rem;color:var(--gray);
+  text-align:center;margin-bottom:24px;
+}
+.modal-field{margin-bottom:14px}
+.modal-label{
+  display:block;
+  font-size:.68rem;font-weight:600;
+  color:var(--secondary);letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:5px;
+}
+.modal-input,.modal-textarea{
+  width:100%;padding:12px 14px;
+  border:1.5px solid var(--gray-light);
+  border-radius:var(--r);
+  font-family:var(--ff-body);font-size:.85rem;
+  color:var(--secondary);background:var(--gray-bg);
+  outline:none;
+  transition:border-color .2s,background .2s,box-shadow .2s;
+  box-sizing:border-box;
+}
+.modal-input::placeholder,.modal-textarea::placeholder{color:var(--gray)}
+.modal-input:focus,.modal-textarea:focus{
+  border-color:var(--primary);
+  background:var(--white);
+  box-shadow:0 0 0 4px rgba(118,180,242,.12);
+}
+.modal-textarea{resize:vertical;min-height:90px}
+.modal-submit{
+  width:100%;padding:14px;margin-top:8px;
+  background:var(--accent);color:var(--white);
+  border:none;border-radius:100px;
+  font-family:var(--ff-display);
+  font-size:.72rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .3s var(--ease-out),box-shadow .3s;
+  box-shadow:0 8px 24px rgba(208,79,109,.3);
+}
+.modal-submit:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(208,79,109,.45)}
+
+/* Vacantes */
+.vacantes-info{
+  margin-bottom:20px;
+  padding:16px;
+  background:var(--gray-bg);
+  border-radius:var(--r);
+  border:1px solid var(--gray-light);
+}
+.vacante-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--gray-light);
+}
+.vacante-item:last-child{border-bottom:none}
+.vacante-icon{font-size:1.2rem}
+.vacante-name{font-size:.82rem;font-weight:600;color:var(--secondary)}
+.vacante-desc{font-size:.72rem;color:var(--gray)}
+.modal-select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  padding-right:36px;
+}
 
 @media (max-width: 768px) {
   .footer { padding: 48px 24px 24px; }

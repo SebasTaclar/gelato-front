@@ -11,7 +11,7 @@
       preload="auto"
     >
       <source
-        src="https://res.cloudinary.com/dlwzazojt/video/upload/q_auto/f_auto/v1780522791/4fba5c84-0159-4925-bdfc-89c2e860907e_bqhqub.mp4"
+        src="https://res.cloudinary.com/dlwzazojt/video/upload/v1784159600/124d5852-8989-4d69-b1e4-8f2886df7a0b_h0jmxc.mp4"
         type="video/mp4"
       />
     </video>
@@ -56,7 +56,7 @@
     <div class="hero-right">
       <div class="hero-stat-card reveal reveal-right d1">
         <div class="hsc-label">Capacidad de Producción</div>
-        <div class="hsc-val"><em>30M</em> Litros</div>
+        <div class="hsc-val"><em>30 Millones de</em> Litros</div>
         <div class="hsc-desc">de helado producidos al año</div>
       </div>
       <div class="hero-stat-card reveal reveal-right d2">

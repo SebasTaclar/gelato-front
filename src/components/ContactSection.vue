@@ -29,23 +29,50 @@
         <div class="contact-detail">
           <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <div>
-            <div class="cd-label">Ubicación</div>
-            <div class="cd-val"><a href="https://maps.google.com/?q=Zona+Franca+Intexzona,+Km.+1+via+Siberia+-+Funza,+Bodega+10,+Cota,+Cundinamarca,+Colombia" target="_blank" rel="noopener">Zona Franca Intexzona, Km. 1 via Siberia — Funza, Bodega 10, Cota, Cundinamarca, Colombia</a></div>
+            <div class="cd-label">Fabrica Cota</div>
+            <div class="cd-val"><a href="https://maps.google.com/?q=Zona+Franca+Intexzona,+Km.+1+via+Siberia+-+Funza,+Bodega+10,+Cota,+Cundinamarca,+Colombia" target="_blank" rel="noopener">Zona Franca Intexzona, Km. 1 via Siberia — Funza, Bodega 10, Cota, Cundinamarca</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="cd-label">Punto de distribución Bogotá</div>
+            <div class="cd-val"><a href="https://maps.app.goo.gl/btdNcfrQLNqvxJDz5" target="_blank" rel="noopener">26a Sur22 Cra. 12I</a></div>
           </div>
         </div>
 
-        <!-- Google Maps -->
-        <div class="contact-map">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.1221385190693!2d-74.16313611139063!3d4.7488138010352134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f837abd23220f%3A0x9af3b3fa2991c9c4!2sOda%20Gelato!5e0!3m2!1ses!2sus!4v1780621351453!5m2!1ses!2sus"
-            width="100%"
-            height="180"
-            style="border:0;"
-            :allowfullscreen="true"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Ubicación ODA Gelato"
-          ></iframe>
+        <!-- Google Maps - Ubicación 1 -->
+        <div class="map-location">
+          <div class="map-label">Fabrica Cota</div>
+          <div class="contact-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.1221385190693!2d-74.16313611139063!3d4.7488138010352134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f837abd23220f%3A0x9af3b3fa2991c9c4!2sOda%20Gelato!5e0!3m2!1ses!2sus!4v1780621351453!5m2!1ses!2sus"
+              width="100%"
+              height="180"
+              style="border:0;"
+              :allowfullscreen="true"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación ODA Gelato - Zona Franca"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- Google Maps - Ubicación 2 -->
+        <div class="map-location" style="margin-top:20px;">
+          <div class="map-label">Punto de distribución Bogotá</div>
+          <div class="contact-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.5!2d-74.1046667!3d4.57825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMzQnNDEuNyJOIDc0wrAwNicxNi44Ilc!5e0!3m2!1ses!2sus!4v1784159600000!5m2!1ses!2sus"
+              width="100%"
+              height="180"
+              style="border:0;"
+              :allowfullscreen="true"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación ODA Gelato - Cota"
+            ></iframe>
+          </div>
         </div>
       </div>
 
@@ -54,26 +81,26 @@
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Nombre *</label>
-            <input class="form-input" type="text" placeholder="Tu nombre completo" required>
+            <input class="form-input" type="text" placeholder="Tu nombre completo" v-model="formData.nombre" required>
           </div>
           <div class="form-group">
             <label class="form-label">Empresa *</label>
-            <input class="form-input" type="text" placeholder="Nombre de tu empresa">
+            <input class="form-input" type="text" placeholder="Nombre de tu empresa" v-model="formData.empresa">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Correo *</label>
-            <input class="form-input" type="email" placeholder="correo@empresa.com" required>
+            <input class="form-input" type="email" placeholder="correo@empresa.com" v-model="formData.correo" required>
           </div>
           <div class="form-group">
             <label class="form-label">Teléfono</label>
-            <input class="form-input" type="tel" placeholder="+57 300 000 0000">
+            <input class="form-input" type="tel" placeholder="+57 300 000 0000" v-model="formData.telefono">
           </div>
         </div>
         <div class="form-group full">
           <label class="form-label">¿Qué necesitas?</label>
-          <select class="form-select">
+          <select class="form-select" v-model="formData.necesidad">
             <option value="">Selecciona una opción</option>
             <option>Desarrollar mi marca de helado</option>
             <option>Maquila de producción</option>
@@ -84,9 +111,9 @@
         </div>
         <div class="form-group full">
           <label class="form-label">Mensaje</label>
-          <textarea class="form-textarea" placeholder="Cuéntanos sobre tu proyecto, volumen estimado, mercado objetivo..."></textarea>
+          <textarea class="form-textarea" placeholder="Cuéntanos sobre tu proyecto, volumen estimado, mercado objetivo..." v-model="formData.mensaje"></textarea>
         </div>
-        <button class="btn-submit" onclick="handleContactSubmit(event)">
+        <button class="btn-submit" type="button" @click="handleContactSubmit">
           Enviar Solicitud →
         </button>
       </div>
@@ -100,7 +127,43 @@ defineOptions({
   name: 'ContactSection'
 })
 
-import { onMounted, onBeforeUnmount, ref } from 'vue'
+import { onMounted, onBeforeUnmount, ref, reactive } from 'vue'
+
+const formData = reactive({
+  nombre: '',
+  empresa: '',
+  correo: '',
+  telefono: '',
+  necesidad: '',
+  mensaje: ''
+})
+
+const handleContactSubmit = () => {
+  const missing: string[] = []
+  
+  if (!formData.nombre.trim()) missing.push('Nombre')
+  if (!formData.correo.trim()) missing.push('Correo')
+  
+  if (missing.length > 0) {
+    alert(`Faltan los siguientes campos obligatorios:\n• ${missing.join('\n• ')}`)
+    return
+  }
+  
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(formData.correo)) {
+    alert('El correo electrónico no es válido')
+    return
+  }
+  
+  alert('¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto.')
+  
+  formData.nombre = ''
+  formData.empresa = ''
+  formData.correo = ''
+  formData.telefono = ''
+  formData.necesidad = ''
+  formData.mensaje = ''
+}
 
 const mapHostEl = ref<HTMLElement | null>(null)
 const shouldLoadMap = ref(false)
@@ -263,6 +326,14 @@ onBeforeUnmount(() => {
   box-shadow:0 8px 24px rgba(208,79,109,.3);
 }
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(208,79,109,.45)}
+
+.map-location{margin-bottom:8px}
+.map-label{
+  font-family:var(--ff-display);
+  font-size:.7rem;font-weight:700;
+  color:var(--secondary);letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:8px;
+}
 
 .contact-map{
   margin-top:24px;
