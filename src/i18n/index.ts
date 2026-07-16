@@ -78,7 +78,7 @@ const messages = {
 			trabajeNosotros: 'Trabaje con nosotros',
 			contabilidad: 'Contabilidad',
 			descriptionFooter: 'Fabricante colombiano de helados premium para marcas propias. 19 años de experiencia, tecnología italiana y vocación de exportación.',
-			rights: '© 2026 ODA GELATO S.A.S. | Desarrollado por',
+			rights: '© 2026 ODA GELATO S.A.S. · Desarrollado por',
 			privacy: 'Privacidad',
 			termsLink: 'Términos'
 		},
@@ -500,7 +500,7 @@ const messages = {
 			trabajeNosotros: 'Work with us',
 			contabilidad: 'Accounting',
 			descriptionFooter: 'Colombian manufacturer of premium private-label ice cream. 19 years of experience, Italian technology and export vocation.',
-			rights: '© 2026 ODA GELATO S.A.S. | Developed by',
+			rights: '© 2026 ODA GELATO S.A.S. · Developed by',
 			privacy: 'Privacy',
 			termsLink: 'Terms'
 		},
