@@ -2,23 +2,23 @@
   <!-- ══ MARQUEE ══ -->
 <div class="marquee-band">
   <div class="marquee-track">
-    <div class="mq-item">Private Label <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Maquila Industrial <span class="mq-sep">✦</span></div>
-    <div class="mq-item">19 Años de Experiencia <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Tecnología Italiana <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Exportación USA <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Certificación FDA <span class="mq-sep">✦</span></div>
-    <div class="mq-item">30M Litros al Año <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Laboratorio Propio <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.privateLabel') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.maquilaIndustrial') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.aniosExperiencia') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.tecnologiaItaliana') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.exportUSA') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.certificacionFDA') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.millonesLitros') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.laboratorioPropio') }} <span class="mq-sep">✦</span></div>
     <!-- repeat for seamless loop -->
-    <div class="mq-item">Private Label <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Maquila Industrial <span class="mq-sep">✦</span></div>
-    <div class="mq-item">19 Años de Experiencia <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Tecnología Italiana <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Exportación USA <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Certificación FDA <span class="mq-sep">✦</span></div>
-    <div class="mq-item">30M Litros al Año <span class="mq-sep">✦</span></div>
-    <div class="mq-item">Laboratorio Propio <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.privateLabel') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.maquilaIndustrial') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.aniosExperiencia') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.tecnologiaItaliana') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.exportUSA') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.certificacionFDA') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.millonesLitros') }} <span class="mq-sep">✦</span></div>
+    <div class="mq-item">{{ t('categories.laboratorioPropio') }} <span class="mq-sep">✦</span></div>
   </div>
 </div>
 </template>
@@ -26,9 +26,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useCategories } from '@/composables/useCategories'
 import type { Category } from '@/types/CategoryType'
 
+const { t } = useI18n()
 const router = useRouter()
 const { categories, loading, error, loadCategories } = useCategories()
 

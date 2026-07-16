@@ -2,8 +2,8 @@
   <!-- ══ VIDEO INSTITUCIONAL ══ -->
   <div class="video-section">
     <div style="text-align:center;margin-bottom:36px">
-      <div class="eyebrow eyebrow-dark" style="justify-content:center"><div class="eyebrow-line"></div> Video Institucional</div>
-      <h2 class="section-title section-title-white reveal">La fábrica detrás<br>de <span>tu marca</span></h2>
+      <div class="eyebrow eyebrow-dark" style="justify-content:center"><div class="eyebrow-line"></div> {{ t('video.eyebrow') }}</div>
+      <h2 class="section-title section-title-white reveal" v-html="t('video.title')"></h2>
     </div>
     <div class="video-wrap reveal">
       <iframe
@@ -18,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 defineOptions({ name: 'VideoSection' });
 </script>
 
@@ -63,7 +65,7 @@ defineOptions({ name: 'VideoSection' });
 }
 
 .section-title-white{color:var(--white)}
-.section-title span{color:var(--primary)}
+:deep(.section-title span){color:var(--primary)}
 .section-desc{
   font-size:1rem;font-weight:300;
   color:var(--gray);line-height:1.8;

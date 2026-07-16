@@ -6,88 +6,117 @@
   <div class="section-inner">
     <div class="contact-grid">
       <div class="reveal reveal-left">
-        <div class="eyebrow"><div class="eyebrow-line"></div> Contacto Comercial</div>
-        <h2 class="section-title">Hablemos de<br><span>tu proyecto</span></h2>
+        <div class="eyebrow"><div class="eyebrow-line"></div> {{ t('contact.eyebrow') }}</div>
+        <h2 class="section-title">{{ t('contact.title') }}<br><span>{{ t('contact.titleSpan') }}</span></h2>
         <p class="section-desc" style="margin-bottom:36px">
-          Cuéntanos tu idea y nuestro equipo comercial te acompañará en todo el proceso, desde el desarrollo del sabor hasta la entrega final.
+          {{ t('contact.desc') }}
         </p>
 
         <div class="contact-detail">
           <div class="cd-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg></div>
           <div>
-            <div class="cd-label">Correo Comercial</div>
+            <div class="cd-label">{{ t('contact.emailLabel') }}</div>
             <div class="cd-val"><a href="mailto:servicioalcliente@odagelato.com.co">servicioalcliente@odagelato.com.co</a></div>
           </div>
         </div>
         <div class="contact-detail">
           <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 13.6a19.79 19.79 0 01-3.07-8.67A2 2 0 013.56 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 10.17a16 16 0 005.74 5.74l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
           <div>
-            <div class="cd-label">WhatsApp</div>
+            <div class="cd-label">{{ t('contact.whatsappLabel') }}</div>
             <div class="cd-val"><a href="https://wa.me/573202002489">+57 320 200 2489</a></div>
           </div>
         </div>
         <div class="contact-detail">
           <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <div>
-            <div class="cd-label">Ubicación</div>
-            <div class="cd-val"><a href="https://maps.google.com/?q=Zona+Franca+Intexzona,+Km.+1+via+Siberia+-+Funza,+Bodega+10,+Cota,+Cundinamarca,+Colombia" target="_blank" rel="noopener">Zona Franca Intexzona, Km. 1 via Siberia — Funza, Bodega 10, Cota, Cundinamarca, Colombia</a></div>
+            <div class="cd-label">{{ t('contact.location1Label') }}</div>
+            <div class="cd-val"><a href="https://maps.google.com/?q=Zona+Franca+Intexzona,+Km.+1+via+Siberia+-+Funza,+Bodega+10,+Cota,+Cundinamarca,+Colombia" target="_blank" rel="noopener">{{ t('contact.location1Address') }}</a></div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div>
+            <div class="cd-label">{{ t('contact.location2Label') }}</div>
+            <div class="cd-val"><a href="https://maps.app.goo.gl/btdNcfrQLNqvxJDz5" target="_blank" rel="noopener">{{ t('contact.location2Address') }}</a></div>
           </div>
         </div>
 
-        <!-- Google Maps -->
-        <div class="contact-map">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.1221385190693!2d-74.16313611139063!3d4.7488138010352134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f837abd23220f%3A0x9af3b3fa2991c9c4!2sOda%20Gelato!5e0!3m2!1ses!2sus!4v1780621351453!5m2!1ses!2sus"
-            width="100%"
-            height="180"
-            style="border:0;"
-            :allowfullscreen="true"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Ubicación ODA Gelato"
-          ></iframe>
+        <!-- Google Maps - Ubicación 1 -->
+        <div class="map-location">
+          <div class="map-label">{{ t('contact.mapLabel1') }}</div>
+          <div class="contact-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.1221385190693!2d-74.16313611139063!3d4.7488138010352134!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f837abd23220f%3A0x9af3b3fa2991c9c4!2sOda%20Gelato!5e0!3m2!1ses!2sus!4v1780621351453!5m2!1ses!2sus"
+              width="100%"
+              height="180"
+              style="border:0;"
+              :allowfullscreen="true"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación ODA Gelato - Zona Franca"
+            ></iframe>
+          </div>
+        </div>
+
+        <!-- Google Maps - Ubicación 2 -->
+        <div class="map-location" style="margin-top:20px;">
+          <div class="map-label">{{ t('contact.mapLabel2') }}</div>
+          <div class="contact-map">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.5!2d-74.1046667!3d4.57825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMzQnNDEuNyJOIDc0wrAwNicxNi44Ilc!5e0!3m2!1ses!2sus!4v1784159600000!5m2!1ses!2sus"
+              width="100%"
+              height="180"
+              style="border:0;"
+              :allowfullscreen="true"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación ODA Gelato - Cota"
+            ></iframe>
+          </div>
         </div>
       </div>
 
       <div class="contact-form reveal reveal-right">
-        <div class="form-title">Solicitar Cotización</div>
+        <div class="form-title">{{ t('contact.formTitle') }}</div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Nombre *</label>
-            <input class="form-input" type="text" placeholder="Tu nombre completo" required>
+            <label class="form-label">{{ t('contact.nombre') }} *</label>
+            <input class="form-input" :class="{ 'input-error': errors.nombre }" type="text" :placeholder="t('contact.nombrePlaceholder')" v-model="formData.nombre" @input="clearError('nombre')">
+            <span class="form-error" v-if="errors.nombre"><span class="form-error-icon">!</span>{{ errors.nombre }}</span>
           </div>
           <div class="form-group">
-            <label class="form-label">Empresa *</label>
-            <input class="form-input" type="text" placeholder="Nombre de tu empresa">
+            <label class="form-label">{{ t('contact.empresa') }} *</label>
+            <input class="form-input" type="text" :placeholder="t('contact.empresaPlaceholder')" v-model="formData.empresa">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Correo *</label>
-            <input class="form-input" type="email" placeholder="correo@empresa.com" required>
+            <label class="form-label">{{ t('contact.correo') }} *</label>
+            <input class="form-input" :class="{ 'input-error': errors.correo }" type="email" :placeholder="t('contact.correoPlaceholder')" v-model="formData.correo" @input="clearError('correo')">
+            <span class="form-error" v-if="errors.correo"><span class="form-error-icon">!</span>{{ errors.correo }}</span>
           </div>
           <div class="form-group">
-            <label class="form-label">Teléfono</label>
-            <input class="form-input" type="tel" placeholder="+57 300 000 0000">
+            <label class="form-label">{{ t('contact.telefono') }}</label>
+            <input class="form-input" type="tel" :placeholder="t('contact.telefonoPlaceholder')" v-model="formData.telefono">
           </div>
         </div>
         <div class="form-group full">
-          <label class="form-label">¿Qué necesitas?</label>
-          <select class="form-select">
-            <option value="">Selecciona una opción</option>
-            <option>Desarrollar mi marca de helado</option>
-            <option>Maquila de producción</option>
-            <option>Exportación / Distribución</option>
-            <option>Desarrollo de nuevos sabores</option>
-            <option>Información general</option>
+          <label class="form-label">{{ t('contact.queNecesitas') }}</label>
+          <select class="form-select" v-model="formData.necesidad">
+            <option value="">{{ t('contact.selectOption') }}</option>
+            <option>{{ t('contact.op1') }}</option>
+            <option>{{ t('contact.op2') }}</option>
+            <option>{{ t('contact.op3') }}</option>
+            <option>{{ t('contact.op4') }}</option>
+            <option>{{ t('contact.op5') }}</option>
           </select>
         </div>
         <div class="form-group full">
-          <label class="form-label">Mensaje</label>
-          <textarea class="form-textarea" placeholder="Cuéntanos sobre tu proyecto, volumen estimado, mercado objetivo..."></textarea>
+          <label class="form-label">{{ t('contact.mensaje') }}</label>
+          <textarea class="form-textarea" :placeholder="t('contact.mensajePlaceholder')" v-model="formData.mensaje"></textarea>
         </div>
-        <button class="btn-submit" onclick="handleContactSubmit(event)">
-          Enviar Solicitud →
+        <button class="btn-submit" type="button" @click="handleContactSubmit">
+          {{ t('contact.btnSubmit') }}
         </button>
       </div>
     </div>
@@ -100,7 +129,62 @@ defineOptions({
   name: 'ContactSection'
 })
 
-import { onMounted, onBeforeUnmount, ref } from 'vue'
+import { onMounted, onBeforeUnmount, ref, reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const formData = reactive({
+  nombre: '',
+  empresa: '',
+  correo: '',
+  telefono: '',
+  necesidad: '',
+  mensaje: ''
+})
+
+const errors = reactive({
+  nombre: '',
+  correo: ''
+})
+
+const clearError = (field: keyof typeof errors) => {
+  errors[field] = ''
+}
+
+const handleContactSubmit = () => {
+  errors.nombre = ''
+  errors.correo = ''
+
+  let hasErrors = false
+
+  if (!formData.nombre.trim()) {
+    errors.nombre = t('contact.errorNombre')
+    hasErrors = true
+  }
+
+  if (!formData.correo.trim()) {
+    errors.correo = t('contact.errorCorreo')
+    hasErrors = true
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.correo)) {
+      errors.correo = t('contact.errorCorreoInvalido')
+      hasErrors = true
+    }
+  }
+
+  if (hasErrors) return
+
+  alert('¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto.')
+
+  formData.nombre = ''
+  formData.empresa = ''
+  formData.correo = ''
+  formData.telefono = ''
+  formData.necesidad = ''
+  formData.mensaje = ''
+}
 
 const mapHostEl = ref<HTMLElement | null>(null)
 const shouldLoadMap = ref(false)
@@ -251,6 +335,40 @@ onBeforeUnmount(() => {
   background:var(--white);
   box-shadow:0 0 0 4px rgba(118,180,242,.12);
 }
+.input-error{
+  border-color:#e74c3c !important;
+  background:var(--white);
+}
+.form-error{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 12px;
+  background:var(--white);
+  border:1px solid #f0a500;
+  border-radius:8px;
+  font-size:.75rem;font-weight:600;
+  color:#333;
+  margin-top:6px;
+  position:relative;
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+.form-error::before{
+  content:'';
+  position:absolute;
+  top:-6px;left:16px;
+  width:10px;height:10px;
+  background:var(--white);
+  border-top:1px solid #f0a500;
+  border-left:1px solid #f0a500;
+  transform:rotate(45deg);
+}
+.form-error-icon{
+  width:18px;height:18px;
+  background:#f0a500;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  font-size:.7rem;font-weight:800;color:var(--white);
+}
 .form-textarea{resize:vertical;min-height:100px}
 .btn-submit{
   width:100%;padding:14px;
@@ -263,6 +381,14 @@ onBeforeUnmount(() => {
   box-shadow:0 8px 24px rgba(208,79,109,.3);
 }
 .btn-submit:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(208,79,109,.45)}
+
+.map-location{margin-bottom:8px}
+.map-label{
+  font-family:var(--ff-display);
+  font-size:.7rem;font-weight:700;
+  color:var(--secondary);letter-spacing:.06em;
+  text-transform:uppercase;margin-bottom:8px;
+}
 
 .contact-map{
   margin-top:24px;

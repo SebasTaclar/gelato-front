@@ -8,20 +8,20 @@
 
         <!-- ═══════ COLUMNA IZQUIERDA ═══════ -->
         <div class="value-left reveal reveal-left">
-          <div class="eyebrow"><div class="eyebrow-line"></div> Propuesta de Valor</div>
-          <h2 class="section-title">Más que<br>manufactura.</h2>
-          <h2 class="section-title section-title--blue">Un aliado<br>estratégico.</h2>
+          <div class="eyebrow"><div class="eyebrow-line"></div> {{ t('value.eyebrow') }}</div>
+          <h2 class="section-title" v-html="t('value.title1')"></h2>
+          <h2 class="section-title section-title--blue" v-html="t('value.title2')"></h2>
           <div class="title-divider"></div>
           <p class="section-desc">
-            Todo lo que necesitas para lanzar, crecer y consolidar tu marca de helado en el mercado.
+            {{ t('value.desc') }}
           </p>
 
           <div class="stats-card">
             <img class="stats-img" src="https://res.cloudinary.com/dlwzazojt/image/upload/q_auto/f_auto/v1780632753/ChatGPT_Image_4_jun_2026_23_11_57_ifl1nb.png" alt="Equipo ODA Gelato">
             <div class="stats-overlay">
 
-              <div class="stats-number">19 años</div>
-              <div class="stats-text">De experiencia produciendo y comercializando helado en LATAM y Norte América</div>
+              <div class="stats-number">{{ t('value.statsYears') }}</div>
+              <div class="stats-text">{{ t('value.statsDesc') }}</div>
             </div>
           </div>
         </div>
@@ -32,10 +32,10 @@
           <div class="prop-card reveal">
             <div class="prop-card__main">
               <div class="prop-body">
-                <h4>Laboratorios Propios</h4>
+                <h4>{{ t('value.card1Title') }}</h4>
                 <ul>
-                  <li>Laboratorio de Investigación y Desarrollo</li>
-                  <li>Laboratorio de Análisis Microbiológicos</li>
+                  <li>{{ t('value.card1Li1') }}</li>
+                  <li>{{ t('value.card1Li2') }}</li>
                 </ul>
               </div>
             </div>
@@ -46,8 +46,8 @@
           <div class="prop-card reveal">
             <div class="prop-card__main">
               <div class="prop-body">
-                <h4>Desarrollo de Producto en Equipo</h4>
-                <p>Co-creamos soluciones a la medida junto con nuestros clientes.</p>
+                <h4>{{ t('value.card2Title') }}</h4>
+                <p>{{ t('value.card2Desc') }}</p>
               </div>
             </div>
             <img class="prop-img" src="https://www.salesforce.com/es/blog/wp-content/uploads/sites/13/2023/10/small-business-product-development.png" alt="Desarrollo en equipo">
@@ -57,10 +57,10 @@
           <div class="prop-card reveal">
             <div class="prop-card__main">
               <div class="prop-body">
-                <h4>Sustentabilidad y Empaque Responsable</h4>
+                <h4>{{ t('value.card3Title') }}</h4>
                 <ul>
-                  <li>Implementación de políticas de sustentabilidad</li>
-                  <li>Soluciones de empaque con materiales reciclables 100%</li>
+                  <li>{{ t('value.card3Li1') }}</li>
+                  <li>{{ t('value.card3Li2') }}</li>
                 </ul>
               </div>
             </div>
@@ -71,8 +71,8 @@
           <div class="prop-card reveal">
             <div class="prop-card__main">
               <div class="prop-body">
-                <h4>Buenas Prácticas y Certificaciones</h4>
-                <p>Compromiso con la calidad, la inocuidad y la mejora continua.</p>
+                <h4>{{ t('value.card4Title') }}</h4>
+                <p>{{ t('value.card4Desc') }}</p>
               </div>
             </div>
             <img class="prop-img" src="https://res.cloudinary.com/dlwzazojt/image/upload/q_auto/f_auto/v1780631493/ChatGPT_Image_4_jun_2026_22_50_08_b1pesm.png" alt="Certificaciones">
@@ -92,8 +92,8 @@
 
         <!-- ═══════ COLUMNA DERECHA ═══════ -->
         <div class="value-right reveal reveal-right">
-          <div class="eyebrow eyebrow-dark"><div class="eyebrow-line" style="background:var(--primary)"></div> Certificaciones</div>
-          <h3 class="cert-panel-title">Estándares que<br>respaldan tu marca</h3>
+          <div class="eyebrow eyebrow-dark"><div class="eyebrow-line" style="background:var(--primary)"></div> {{ t('value.certEyebrow') }}</div>
+          <h3 class="cert-panel-title" v-html="t('value.certTitle')"></h3>
 
           <div class="cert-list">
             <div class="cert-item">
@@ -101,8 +101,8 @@
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
               </div>
               <div class="cert-item__text">
-                <strong>FDA – Food & Drug Administration</strong>
-                <span>Habilitados para exportar a Estados Unidos</span>
+                <strong>{{ t('value.cert1Title') }}</strong>
+                <span>{{ t('value.cert1Desc') }}</span>
               </div>
             </div>
 
@@ -111,8 +111,8 @@
                 <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               </div>
               <div class="cert-item__text">
-                <strong>HACCP Certificado</strong>
-                <span>Control de puntos críticos en toda la cadena</span>
+                <strong>{{ t('value.cert2Title') }}</strong>
+                <span>{{ t('value.cert2Desc') }}</span>
               </div>
             </div>
 
@@ -121,8 +121,8 @@
                 <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 0 1 1.946-.806 3.42 3.42 0 0 1 4.438 0 3.42 3.42 0 0 0 1.946.806 3.42 3.42 0 0 1 3.138 3.138 3.42 3.42 0 0 0 .806 1.946 3.42 3.42 0 0 1 0 4.438 3.42 3.42 0 0 0-.806 1.946 3.42 3.42 0 0 1-3.138 3.138 3.42 3.42 0 0 0-1.946.806 3.42 3.42 0 0 1-4.438 0 3.42 3.42 0 0 0-1.946-.806 3.42 3.42 0 0 1-3.138-3.138 3.42 3.42 0 0 0-.806-1.946 3.42 3.42 0 0 1 0-4.438 3.42 3.42 0 0 0 .806-1.946 3.42 3.42 0 0 1 3.138-3.138z"/></svg>
               </div>
               <div class="cert-item__text">
-                <strong>FSSC 22000 — En proceso</strong>
-                <span>Certificación de inocuidad alimentaria global (Meta 2025)</span>
+                <strong>{{ t('value.cert3Title') }}</strong>
+                <span>{{ t('value.cert3Desc') }}</span>
               </div>
             </div>
 
@@ -133,8 +133,8 @@
                 <svg viewBox="0 0 24 24"><path d="M7 16.5l-5-3 5-3 5 3-5 3zM12 13.5l5-3 5 3-5 3-5-3zM7 7.5l5-3 5 3-5 3-5-3z"/></svg>
               </div>
               <div class="cert-item__text">
-                <strong>Proveedores Locales Certificados</strong>
-                <span>Cadena de suministro sostenible y trazable</span>
+                <strong>{{ t('value.cert4Title') }}</strong>
+                <span>{{ t('value.cert4Desc') }}</span>
               </div>
             </div>
           </div>
@@ -149,7 +149,7 @@
   ══════════════════════════════════════════ -->
   <section class="section allies-section" style="padding:56px 48px">
     <div class="section-inner">
-      <div class="allies-label">Marcas que confían en ODA GELATO</div>
+      <div class="allies-label">{{ t('value.alliesLabel') }}</div>
       <div class="allies-track">
         <div class="allies-inner allies-single">
           <div class="ally-logo"><img src="https://res.cloudinary.com/dlwzazojt/image/upload/v1784053092/TP_Logo_Primary_red_rb4bqp.png" alt="TP" class="ally-img" /></div>
@@ -347,7 +347,7 @@ onBeforeUnmount(() => {
 ═══════════════════════════════════════════════ */
 .allies-section{border-top:1px solid var(--gray-light);border-bottom:1px solid var(--gray-light);background:var(--white)}
 .allies-label{
-  text-align:center;font-size:.65rem;font-weight:600;
+  text-align:center;font-size:.75rem;font-weight:600;
   letter-spacing:.14em;text-transform:uppercase;
   color:var(--gray);margin-bottom:36px;
 }
@@ -365,7 +365,7 @@ onBeforeUnmount(() => {
 }
 @keyframes allies{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .ally-logo{
-  height:60px;width:180px;
+  height:80px;width:180px;
   background:transparent;
   border-radius:var(--r-sm);
   display:flex;align-items:center;justify-content:center;

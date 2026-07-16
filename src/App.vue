@@ -301,12 +301,12 @@ header {
 }
 
 .nav-logo-img {
-  height: 40px;
+  height: 54px;
   width: auto;
   display: block;
   background: var(--white);
   border-radius: var(--r-sm);
-  padding: 4px 8px;
+  padding: 6px 10px;
   object-fit: contain;
 }
 

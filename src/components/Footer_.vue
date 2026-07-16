@@ -7,7 +7,7 @@
     <div class="footer-brand">
       <img src="/images/logo.png" alt="ODA Gelato" class="footer-logo-img">
       <!-- <img src="/public/assets/logos/logo-oda-gelato-white.svg" style="height:36px"> -->
-      <p>Fabricante colombiano de helados premium para marcas propias. 19 años de experiencia, tecnología italiana y vocación de exportación.</p>
+      <p>{{ t('footer.descriptionFooter') }}</p>
       <div class="f-social">
         <!-- <a href="#" class="fsoc" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a> -->
         <a href="https://www.youtube.com/watch?v=xGjQ-bp3tCo" class="fsoc" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><rect x="1" y="5" width="22" height="14" rx="3" ry="3" fill="none"/><polygon points="10 9 16 12 10 15 10 9" fill="none"/></svg></a>
@@ -15,50 +15,347 @@
       </div>
     </div>
     <div class="footer-col">
-      <h4>Empresa</h4>
+      <h4>{{ t('footer.company') }}</h4>
       <ul>
-        <li><a href="#about">Quiénes Somos</a></li>
-        <li><a href="#portafolio">Portafolio</a></li>
-        <li><a href="#valor">Propuesta de Valor</a></li>
-        <li><a href="#portafolio">Tienda</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#about">{{ t('footer.about') }}</a></li>
+        <li><a href="#portafolio">{{ t('footer.portfolio') }}</a></li>
+        <li><a href="#valor">{{ t('footer.value') }}</a></li>
+        <li><a href="#portafolio">{{ t('footer.storeLink') }}</a></li>
+        <li><a href="#contacto">{{ t('footer.contactLink') }}</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Documentos</h4>
+      <h4>{{ t('footer.documents') }}</h4>
       <ul>
-        <li><a href="/public/docs/politica-calidad.pdf" target="_blank">Política de Calidad</a></li>
-        <li><a href="/public/docs/politica-inocuidad.pdf" target="_blank">Política de Inocuidad</a></li>
-        <li><a href="/public/docs/terminos-legales.pdf" target="_blank">Términos Legales</a></li>
-        <li><a href="/public/docs/politica-privacidad.pdf" target="_blank">Política de Privacidad</a></li>
+        <li><a href="/docs/politica-calidad.pdf" target="_blank">{{ t('footer.politicaCalidad') }}</a></li>
+        <li><a href="/public/docs/politica-inocuidad.pdf" target="_blank">{{ t('footer.politicaInocuidad') }}</a></li>
+        <li><a href="/public/docs/terminos-legales.pdf" target="_blank">{{ t('footer.terminosLegales') }}</a></li>
+        <li><a href="/public/docs/politica-privacidad.pdf" target="_blank">{{ t('footer.politicaPrivacidad') }}</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Contactos</h4>
+      <h4>{{ t('footer.contacts') }}</h4>
       <ul>
-        <li><a href="mailto:servicioalcliente@odagelato.com.co">Servicio al Cliente</a></li>
-        <li><a href="mailto:gerencia.comercial@odagelato.com.co">Ser cliente / Aliado</a></li>
-        <li><a href="mailto:compras@odagelato.com.co">¿Quieres ser proveedor?</a></li>
-        <li><a href="mailto:coordinador.gestionhumana@odagelato.com.co">Trabaje con nosotros</a></li>
-        <li><a href="mailto:contador@odagelato.com.co">Contabilidad</a></li>
+        <li><a href="#" @click.prevent="openModal('Servicio al Cliente', 'servicioalcliente@odagelato.com.co')">{{ t('footer.servicioCliente') }}</a></li>
+        <li><a href="#" @click.prevent="openModal('Ser cliente / Aliado', 'gerencia.comercial@odagelato.com.co')">{{ t('footer.serCliente') }}</a></li>
+        <li><a href="#" @click.prevent="openProveedorModal">{{ t('footer.serProveedor') }}</a></li>
+        <li><a href="#" @click.prevent="openVacantesModal">{{ t('footer.trabajeNosotros') }}</a></li>
+        <li><a href="#" @click.prevent="openModal('Contabilidad', 'contador@odagelato.com.co')">{{ t('footer.contabilidad') }}</a></li>
       </ul>
+    </div>
+  </div>
+
+  <!-- Modal de Contacto -->
+  <div class="modal-overlay" v-if="showModal" @click.self="closeModal">
+    <div class="modal-content">
+      <button class="modal-close" @click="closeModal">&times;</button>
+      <div class="modal-icon">
+        <svg v-if="!isVacantes" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+        <svg v-else viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+      </div>
+      <h3 class="modal-title">{{ modalTitle }}</h3>
+
+      <!-- Formulario de Vacantes -->
+      <template v-if="isVacantes">
+        <p class="modal-subtitle">¡Únete a nuestro equipo! Envíanos tu hoja de vida</p>
+        <form @submit.prevent="submitVacantes" class="vacantes-form">
+          <div class="form-row-2">
+            <div class="modal-field">
+              <label class="modal-label">Nombre completo *</label>
+              <input class="modal-input" type="text" placeholder="Tu nombre completo" v-model="vacantesData.nombre" required>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Correo electrónico *</label>
+              <input class="modal-input" type="email" placeholder="correo@empresa.com" v-model="vacantesData.correo" required>
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="modal-field">
+              <label class="modal-label">Teléfono *</label>
+              <input class="modal-input" type="tel" placeholder="+57 300 000 0000" v-model="vacantesData.telefono" required>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Hoja de vida *</label>
+              <div class="file-upload" :class="{ 'has-file': vacantesData.archivo }">
+                <input type="file" id="file-upload" accept=".pdf,.doc,.docx" @change="handleFileUpload" class="file-input">
+                <label for="file-upload" class="file-label">
+                  <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span v-if="!vacantesData.archivo">Seleccionar archivo</span>
+                  <span v-else>{{ vacantesData.archivo.name }}</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Breve presentación personal *</label>
+            <textarea class="modal-textarea modal-textarea-sm" placeholder="Cuéntanos sobre tu experiencia, habilidades y por qué quieres unirte a nuestro equipo..." v-model="vacantesData.presentacion" required></textarea>
+          </div>
+          <button class="modal-submit" type="submit">Enviar Postulación →</button>
+        </form>
+      </template>
+
+      <!-- Formulario de Proveedor -->
+      <template v-else-if="isProveedor">
+        <p class="modal-subtitle">Cuéntanos sobre tu producto o servicio</p>
+        <form @submit.prevent="submitProveedor" class="vacantes-form">
+          <div class="form-row-2">
+            <div class="modal-field">
+              <label class="modal-label">Nombre de la empresa *</label>
+              <input class="modal-input" type="text" placeholder="Nombre de tu empresa" v-model="proveedorData.empresa" required>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Persona de contacto *</label>
+              <input class="modal-input" type="text" placeholder="Tu nombre completo" v-model="proveedorData.contacto" required>
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="modal-field">
+              <label class="modal-label">Correo electrónico *</label>
+              <input class="modal-input" type="email" placeholder="correo@empresa.com" v-model="proveedorData.correo" required>
+            </div>
+            <div class="modal-field">
+              <label class="modal-label">Teléfono *</label>
+              <input class="modal-input" type="tel" placeholder="+57 300 000 0000" v-model="proveedorData.telefono" required>
+            </div>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Página web</label>
+            <input class="modal-input" type="text" placeholder="www.tuempresa.com" v-model="proveedorData.web">
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Descripción del producto / servicio *</label>
+            <textarea class="modal-textarea modal-textarea-sm" placeholder="Describe brevemente tu producto o servicio, presentaciones, capacidades, etc..." v-model="proveedorData.descripcion" required></textarea>
+          </div>
+          <button class="modal-submit" type="submit">Enviar Información →</button>
+        </form>
+      </template>
+
+      <!-- Formulario de Contacto General -->
+      <template v-else>
+        <p class="modal-subtitle">Envíanos tu mensaje y te contactaremos pronto</p>
+        <form @submit.prevent="submitModal">
+          <div class="modal-field">
+            <label class="modal-label">Nombre *</label>
+            <input class="modal-input" type="text" placeholder="Tu nombre completo" v-model="modalData.nombre" required>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Correo *</label>
+            <input class="modal-input" type="email" placeholder="correo@empresa.com" v-model="modalData.correo" required>
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Teléfono</label>
+            <input class="modal-input" type="tel" placeholder="+57 300 000 0000" v-model="modalData.telefono">
+          </div>
+          <div class="modal-field">
+            <label class="modal-label">Mensaje *</label>
+            <textarea class="modal-textarea" placeholder="Escribe tu mensaje..." v-model="modalData.mensaje" required></textarea>
+          </div>
+          <button class="modal-submit" type="submit">Enviar Mensaje →</button>
+        </form>
+      </template>
     </div>
   </div>
 
 
 
   <div class="footer-bottom">
-    <p>© 2026 ODA GELATO S.A.S. | Desarrollado por <a href="https://www.dator.org" target="_blank" rel="noopener">DataOr</a></p>
-    <div class="footer-legal-links">
-      <a href="/public/docs/politica-privacidad.pdf">Privacidad</a>
-      <a href="/public/docs/terminos-legales.pdf">Términos</a>
-      <a href="mailto:contador@odagelato.com.co">Contabilidad</a>
-    </div>
+    <p>{{ t('footer.rights') }} <a href="https://www.dator.org" target="_blank" rel="noopener">DataOr</a></p>
+    <!-- <div class="footer-legal-links">
+      <a href="/public/docs/politica-privacidad.pdf">{{ t('footer.privacy') }}</a>
+      <a href="/public/docs/terminos-legales.pdf">{{ t('footer.termsLink') }}</a>
+      <a href="mailto:contador@odagelato.com.co">{{ t('footer.contabilidad') }}</a>
+    </div> -->
   </div>
 </footer>
+
+<!-- Notificación de Éxito -->
+<div class="success-toast" v-if="showSuccess">
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="success-content">
+    <div class="success-title">{{ successTitle }}</div>
+    <div class="success-desc">{{ successDesc }}</div>
+  </div>
+</div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const showModal = ref(false)
+const showSuccess = ref(false)
+const successTitle = ref('')
+const successDesc = ref('')
+const modalTitle = ref('')
+const modalEmail = ref('')
+const isVacantes = ref(false)
+const isProveedor = ref(false)
+
+const modalData = reactive({
+  nombre: '',
+  correo: '',
+  telefono: '',
+  mensaje: ''
+})
+
+const proveedorData = reactive({
+  empresa: '',
+  contacto: '',
+  correo: '',
+  telefono: '',
+  web: '',
+  descripcion: ''
+})
+
+const openModal = (title: string, email: string) => {
+  modalTitle.value = title
+  modalEmail.value = email
+  isVacantes.value = false
+  isProveedor.value = false
+  showModal.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+const openVacantesModal = () => {
+  modalTitle.value = 'Trabaje con Nosotros'
+  isVacantes.value = true
+  isProveedor.value = false
+  showModal.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+const openProveedorModal = () => {
+  modalTitle.value = '¿Quieres ser proveedor?'
+  isProveedor.value = true
+  isVacantes.value = false
+  showModal.value = true
+  document.body.style.overflow = 'hidden'
+}
+
+const closeModal = () => {
+  showModal.value = false
+  document.body.style.overflow = ''
+  modalData.nombre = ''
+  modalData.correo = ''
+  modalData.telefono = ''
+  modalData.mensaje = ''
+  vacantesData.nombre = ''
+  vacantesData.correo = ''
+  vacantesData.telefono = ''
+  vacantesData.presentacion = ''
+  vacantesData.archivo = null
+  proveedorData.empresa = ''
+  proveedorData.contacto = ''
+  proveedorData.correo = ''
+  proveedorData.telefono = ''
+  proveedorData.web = ''
+  proveedorData.descripcion = ''
+}
+
+const vacantesData = reactive({
+  nombre: '',
+  correo: '',
+  telefono: '',
+  presentacion: '',
+  archivo: null as File | null
+})
+
+const handleFileUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  if (target.files && target.files.length > 0) {
+    vacantesData.archivo = target.files[0]
+  }
+}
+
+const submitVacantes = () => {
+  const missing: string[] = []
+  if (!vacantesData.nombre.trim()) missing.push('Nombre')
+  if (!vacantesData.correo.trim()) missing.push('Correo')
+  if (!vacantesData.telefono.trim()) missing.push('Teléfono')
+  if (!vacantesData.presentacion.trim()) missing.push('Presentación')
+  if (!vacantesData.archivo) missing.push('Hoja de vida')
+
+  if (missing.length > 0) {
+    alert(`Faltan los siguientes campos obligatorios:\n• ${missing.join('\n• ')}`)
+    return
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(vacantesData.correo)) {
+    alert('El correo electrónico no es válido')
+    return
+  }
+
+  showSuccess.value = true
+  successTitle.value = '¡Postulación enviada!'
+  successDesc.value = 'Hemos recibido tu hoja de vida. Te contactaremos pronto.'
+  closeModal()
+
+  setTimeout(() => {
+    showSuccess.value = false
+  }, 4000)
+}
+
+const submitProveedor = () => {
+  const missing: string[] = []
+  if (!proveedorData.empresa.trim()) missing.push('Nombre de la empresa')
+  if (!proveedorData.contacto.trim()) missing.push('Persona de contacto')
+  if (!proveedorData.correo.trim()) missing.push('Correo')
+  if (!proveedorData.telefono.trim()) missing.push('Teléfono')
+  if (!proveedorData.descripcion.trim()) missing.push('Descripción')
+
+  if (missing.length > 0) {
+    alert(`Faltan los siguientes campos obligatorios:\n• ${missing.join('\n• ')}`)
+    return
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(proveedorData.correo)) {
+    alert('El correo electrónico no es válido')
+    return
+  }
+
+  showSuccess.value = true
+  successTitle.value = '¡Información enviada!'
+  successDesc.value = 'Hemos recibido los datos de tu empresa. Te contactaremos pronto.'
+  closeModal()
+
+  setTimeout(() => {
+    showSuccess.value = false
+  }, 4000)
+}
+
+const submitModal = () => {
+  const missing: string[] = []
+  if (!modalData.nombre.trim()) missing.push('Nombre')
+  if (!modalData.correo.trim()) missing.push('Correo')
+  if (!modalData.mensaje.trim()) missing.push('Mensaje')
+
+  if (missing.length > 0) {
+    alert(`Faltan los siguientes campos obligatorios:\n• ${missing.join('\n• ')}`)
+    return
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  if (!emailRegex.test(modalData.correo)) {
+    alert('El correo electrónico no es válido')
+    return
+  }
+
+  showSuccess.value = true
+  successTitle.value = '¡Mensaje enviado!'
+  successDesc.value = 'Hemos recibido tu mensaje. Te contactaremos pronto.'
+  closeModal()
+
+  setTimeout(() => {
+    showSuccess.value = false
+  }, 4000)
+}
+</script>
 
 <style scoped>
 /* ═══════════════════════════════════════════════
@@ -72,7 +369,7 @@
   border-bottom:1px solid rgba(255,255,255,.07);
 }
 .footer-logo-img {
-  height: 48px;
+  height: 68px;
   width: auto;
   display: block;
   background: var(--white);
@@ -161,6 +458,152 @@
 .footer-legal-links a{font-size:.7rem;color:rgba(255,255,255,.2);transition:color .2s;text-decoration:none}
 .footer-legal-links a:hover{color:var(--primary)}
 
+/* Modal */
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.6);
+  display:flex;align-items:center;justify-content:center;
+  z-index:9999;
+  backdrop-filter:blur(4px);
+  animation:fadeIn .2s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.modal-content{
+  background:var(--white);
+  border-radius:var(--r-xl);
+  padding:40px;
+  max-width:560px;width:92%;
+  position:relative;
+  box-shadow:0 25px 60px rgba(0,0,0,.3);
+  animation:slideUp .3s ease;
+  max-height:90vh;overflow-y:auto;
+}
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  background:none;border:none;
+  font-size:1.5rem;color:var(--gray);
+  cursor:pointer;
+  transition:color .2s;
+}
+.modal-close:hover{color:var(--secondary)}
+.modal-icon{
+  width:56px;height:56px;
+  background:var(--primary-wash);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+  border:1px solid rgba(118,180,242,.2);
+}
+.modal-icon svg{width:24px;height:24px;stroke:var(--primary-dark);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.modal-title{
+  font-family:var(--ff-display);
+  font-size:1.2rem;font-weight:700;
+  color:var(--secondary);text-align:center;
+  margin-bottom:4px;letter-spacing:-.02em;
+}
+.modal-subtitle{
+  font-size:.82rem;color:var(--gray);
+  text-align:center;margin-bottom:24px;
+}
+.modal-field{margin-bottom:14px}
+.modal-label{
+  display:block;
+  font-size:.68rem;font-weight:600;
+  color:var(--secondary);letter-spacing:.04em;
+  text-transform:uppercase;margin-bottom:5px;
+}
+.modal-input,.modal-textarea{
+  width:100%;padding:12px 14px;
+  border:1.5px solid var(--gray-light);
+  border-radius:var(--r);
+  font-family:var(--ff-body);font-size:.85rem;
+  color:var(--secondary);background:var(--gray-bg);
+  outline:none;
+  transition:border-color .2s,background .2s,box-shadow .2s;
+  box-sizing:border-box;
+}
+.modal-input::placeholder,.modal-textarea::placeholder{color:var(--gray)}
+.modal-input:focus,.modal-textarea:focus{
+  border-color:var(--primary);
+  background:var(--white);
+  box-shadow:0 0 0 4px rgba(118,180,242,.12);
+}
+.modal-textarea{resize:vertical;min-height:90px}
+.modal-textarea-sm{min-height:70px}
+
+/* Form Row 2 columns */
+.form-row-2{
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;
+}
+
+/* File Upload */
+.file-upload{position:relative}
+.file-input{
+  position:absolute;opacity:0;width:0;height:0;
+}
+.file-label{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 14px;
+  background:var(--gray-bg);
+  border:1.5px dashed var(--gray-light);
+  border-radius:var(--r);
+  font-size:.82rem;color:var(--gray);
+  cursor:pointer;
+  transition:border-color .2s,background .2s;
+}
+.file-label:hover{
+  border-color:var(--primary);
+  background:rgba(118,180,242,.05);
+}
+.file-label svg{color:var(--gray);transition:color .2s}
+.file-label:hover svg{color:var(--primary)}
+.has-file .file-label{
+  border-color:var(--primary);
+  border-style:solid;
+  background:rgba(118,180,242,.05);
+}
+.has-file .file-label svg{color:var(--primary)}
+
+.modal-submit{
+  width:100%;padding:14px;margin-top:8px;
+  background:var(--accent);color:var(--white);
+  border:none;border-radius:100px;
+  font-family:var(--ff-display);
+  font-size:.72rem;font-weight:700;letter-spacing:.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .3s var(--ease-out),box-shadow .3s;
+  box-shadow:0 8px 24px rgba(208,79,109,.3);
+}
+.modal-submit:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(208,79,109,.45)}
+
+/* Vacantes */
+.vacantes-info{
+  margin-bottom:20px;
+  padding:16px;
+  background:var(--gray-bg);
+  border-radius:var(--r);
+  border:1px solid var(--gray-light);
+}
+.vacante-item{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--gray-light);
+}
+.vacante-item:last-child{border-bottom:none}
+.vacante-icon{font-size:1.2rem}
+.vacante-name{font-size:.82rem;font-weight:600;color:var(--secondary)}
+.vacante-desc{font-size:.72rem;color:var(--gray)}
+.modal-select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
+  padding-right:36px;
+}
+
 @media (max-width: 768px) {
   .footer { padding: 48px 24px 24px; }
   .footer-grid {
@@ -188,6 +631,56 @@
     gap: 8px;
   }
   .footer-legal-links { justify-content: center; flex-wrap: wrap; }
+}
+
+/* Success Toast */
+.success-toast{
+  position:fixed;
+  bottom:32px;right:32px;
+  display:flex;align-items:center;gap:14px;
+  padding:16px 24px;
+  background:var(--white);
+  border-radius:12px;
+  box-shadow:0 10px 40px rgba(0,0,0,.15);
+  z-index:10000;
+  animation:toastIn .4s ease;
+  border-left:4px solid #22c55e;
+}
+@keyframes toastIn{
+  from{opacity:0;transform:translateY(20px) scale(.95)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+.success-icon{
+  width:40px;height:40px;
+  background:#dcfce7;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.success-icon svg{color:#22c55e}
+.success-title{
+  font-family:var(--ff-display);
+  font-size:.88rem;font-weight:700;
+  color:var(--secondary);
+  margin-bottom:2px;
+}
+.success-desc{
+  font-size:.78rem;color:var(--gray);
+  line-height:1.4;
+}
+
+@media (max-width: 768px) {
+  .success-toast{
+    bottom:16px;right:16px;left:16px;
+  }
+  .form-row-2{
+    grid-template-columns:1fr;
+  }
+  .modal-content{
+    max-width:100%;width:95%;
+    padding:24px;
+    margin:16px;
+  }
 }
 </style>
 
