@@ -266,6 +266,7 @@ onBeforeUnmount(() => {
 .contact-grid{
   display:grid;grid-template-columns:1fr 1.2fr;
   gap:72px;align-items:start;
+  padding: 30px;
 }
 @media (max-width:768px){
   .contact-grid{grid-template-columns:1fr;gap:32px}
@@ -307,7 +308,7 @@ onBeforeUnmount(() => {
   color:var(--secondary);margin-bottom:24px;
   letter-spacing:-.02em;
 }
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-row{display:grid;grid-template-columns:1fr;gap:14px}
 @media (max-width:768px){.form-row{grid-template-columns:1fr}}
 .form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
 .form-group.full{grid-column:1/-1}

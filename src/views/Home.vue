@@ -60,12 +60,12 @@
 <script setup lang="ts">
 import { ref, defineAsyncComponent } from 'vue'
 import MainBanner from '@/components/MainBanner.vue';
+import ContactSection from '@/components/ContactSection.vue';
 
 // Carga diferida (code splitting) de secciones pesadas
 const ProductStore = defineAsyncComponent(() => import('@/components/ProductStore.vue'))
 const ValueSection = defineAsyncComponent(() => import('@/components/ValueSection.vue'))
 const CtaSection = defineAsyncComponent(() => import('@/components/CtaSection.vue'))
-const ContactSection = defineAsyncComponent(() => import('@/components/ContactSection.vue'))
 const Footer_ = defineAsyncComponent(() => import('@/components/Footer_.vue'))
 const CategoriesSection = defineAsyncComponent(() => import('@/components/CategoriesSection.vue'))
 const AboutSection = defineAsyncComponent(() => import('@/components/About.vue'))
