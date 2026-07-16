@@ -131,8 +131,11 @@ defineOptions({
 
 import { onMounted, onBeforeUnmount, ref, reactive } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useEmail } from '@/composables/useEmail'
+import { EMAIL_RECIPIENTS, extraField } from '@/services/email/emailService'
 
 const { t } = useI18n()
+const { isSending, sendError, sendEmail, clearError: clearSendError } = useEmail()
 
 const formData = reactive({
   nombre: '',
@@ -152,7 +155,7 @@ const clearError = (field: keyof typeof errors) => {
   errors[field] = ''
 }
 
-const handleContactSubmit = () => {
+const handleContactSubmit = async () => {
   errors.nombre = ''
   errors.correo = ''
 
@@ -176,14 +179,29 @@ const handleContactSubmit = () => {
 
   if (hasErrors) return
 
-  alert('¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto.')
+  const success = await sendEmail({
+    to_email: EMAIL_RECIPIENTS.COTIZACION,
+    subject: 'Nueva solicitud de cotización',
+    from_name: formData.nombre,
+    from_email: formData.correo,
+    phone: formData.telefono,
+    message: formData.mensaje,
+    extra_fields: [
+      extraField('Empresa', formData.empresa),
+      extraField('Necesidad', formData.necesidad),
+    ].join('')
+  })
 
-  formData.nombre = ''
-  formData.empresa = ''
-  formData.correo = ''
-  formData.telefono = ''
-  formData.necesidad = ''
-  formData.mensaje = ''
+  if (success) {
+    alert('¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto.')
+
+    formData.nombre = ''
+    formData.empresa = ''
+    formData.correo = ''
+    formData.telefono = ''
+    formData.necesidad = ''
+    formData.mensaje = ''
+  }
 }
 
 const mapHostEl = ref<HTMLElement | null>(null)

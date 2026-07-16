@@ -1,5 +1,5 @@
 {
-  "name": "soydanirodriguezz-frontend",
+  "name": "gelato-frontend",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-free": "^7.0.0",
     "@vueuse/head": "0.9.8",
     "axios": "^1.8.4",
