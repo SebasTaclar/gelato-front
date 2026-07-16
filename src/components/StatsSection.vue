@@ -3,35 +3,35 @@
 <div class="stats-section">
   <div class="stats-grid">
     <div class="stat-item reveal d1">
-      <!-- <span class="stat-icon">🏭</span> -->
-      <div class="stat-num"><span class="counter" data-target="19">19</span><span class="unit">años</span></div>
-      <div class="stat-label">De experiencia en manufactura</div>
+      <div class="stat-num"><span class="counter" data-target="19">19</span><span class="unit">{{ t('stats.years') }}</span></div>
+      <div class="stat-label">{{ t('stats.yearsLabel') }}</div>
     </div>
     <div class="stat-item reveal d2">
-      <!-- <span class="stat-icon">❄️</span> -->
-      <div class="stat-num"><span class="counter" data-target="30">30</span><span class="unit">M lts</span></div>
-      <div class="stat-label">Capacidad de producción anual</div>
+      <div class="stat-num"><span class="counter" data-target="30">30</span><span class="unit">{{ t('stats.capacityUnit') }}</span></div>
+      <div class="stat-label">{{ t('stats.capacityLabel') }}</div>
     </div>
     <div class="stat-item reveal d3">
       <span class="stat-icon">🇺🇸</span>
-      <div class="stat-num" style="font-size:1.4rem">FDA</div>
-      <div class="stat-label">Habilitados para exportar a EE.UU.</div>
+      <div class="stat-num" style="font-size:1.4rem">{{ t('stats.fda') }}</div>
+      <div class="stat-label">{{ t('stats.fdaLabel') }}</div>
     </div>
     <div class="stat-item reveal d4">
       <span class="stat-icon">🇮🇹</span>
-      <div class="stat-num" style="font-size:1.4rem">Tech</div>
-      <div class="stat-label">Tecnología italiana de última generación</div>
+      <div class="stat-num" style="font-size:1.4rem">{{ t('stats.tech') }}</div>
+      <div class="stat-label">{{ t('stats.techLabel') }}</div>
     </div>
     <div class="stat-item reveal d5">
       <span class="stat-icon">🔬</span>
-      <div class="stat-num" style="font-size:1.4rem">I+D</div>
-      <div class="stat-label">Laboratorio propio de desarrollo</div>
+      <div class="stat-num" style="font-size:1.4rem">{{ t('stats.rnd') }}</div>
+      <div class="stat-label">{{ t('stats.rndLabel') }}</div>
     </div>
   </div>
 </div>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 defineOptions({ name: 'StatsSection' });
 </script>
 

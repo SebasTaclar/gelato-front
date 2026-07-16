@@ -6,15 +6,12 @@
         <div class="store-header__left">
           <div class="store-eyebrow">
             <div class="store-eyebrow-line"></div>
-            <span>Portafolio de Productos</span>
+            <span>{{ t('productStore.eyebrow') }}</span>
           </div>
-          <h2 class="store-title">
-            Cada formato.<br>
-            <span class="store-title--blue">Tu marca.</span>
-          </h2>
+          <h2 class="store-title" v-html="t('productStore.title')"></h2>
         </div>
         <p class="store-subtitle">
-          Producimos todos los formatos de helado industrial que tu marca necesita, con las presentaciones que el mercado demanda.
+          {{ t('productStore.subtitle') }}
         </p>
       </div>
 
@@ -28,12 +25,12 @@
           <input
             type="search"
             v-model="searchTerm"
-            placeholder="Buscar por nombre de la pieza..."
-            aria-label="Buscar productos por nombre"
+            :placeholder="t('productStore.searchPlaceholder')"
+            :aria-label="t('productStore.searchAria')"
             class="search-input"
           />
 
-          <button v-if="searchTerm" class="search-clear" @click.prevent="searchTerm = ''" aria-label="Limpiar búsqueda">X</button>
+          <button v-if="searchTerm" class="search-clear" @click.prevent="searchTerm = ''" :aria-label="t('productStore.clearAria')">X</button>
         </div>
       </div>
 
@@ -63,7 +60,7 @@
             type="button"
             class="carousel-arrow carousel-arrow--left"
             @click="scrollCategory(section.slug, -1)"
-            aria-label="Anterior"
+            :aria-label="t('productStore.prevAria')"
           >
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
@@ -112,7 +109,7 @@
                   class="ice-status"
                   :class="product.status === 'available' ? 'ice-status--available' : 'ice-status--coming-soon'"
                 >
-                  {{ product.status === 'available' ? 'Disponible' : 'Próximamente' }}
+                  {{ product.status === 'available' ? t('productStore.available') : t('productStore.comingSoon') }}
                 </span>
               </div>
               <h3 class="ice-name">{{ product.name }}</h3>
@@ -123,7 +120,7 @@
             type="button"
             class="carousel-arrow carousel-arrow--right"
             @click="scrollCategory(section.slug, 1)"
-            aria-label="Siguiente"
+            :aria-label="t('productStore.nextAria')"
           >
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
           </button>
@@ -481,9 +478,12 @@
 </style><script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useProducts, type Product as ProductType } from '@/composables/useProducts'
 import { useProductQuickView } from '@/composables/useProductQuickView'
 import { useCart } from '@/composables/useCart'
+
+const { t } = useI18n()
 
 // Router
 const router = useRouter()
@@ -779,7 +779,7 @@ const addToCartFromCard = (event: Event, product: ProductType) => {
   line-height: 1.05;
   margin: 0;
 }
-.store-title--blue {
+:deep(.store-title--blue) {
   color: var(--primary);
 }
 .store-subtitle {

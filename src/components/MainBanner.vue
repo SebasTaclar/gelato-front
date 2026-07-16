@@ -24,29 +24,25 @@
     <div class="hero-text">
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-dot"></div>
-        <span>Fabricante Industrial · Helados de alta calidad</span>
+        <span>{{ t('hero.eyebrow') }}</span>
       </div>
 
       <div class="hero-rotating-wrap">
         <div class="hero-rotating" id="heroRotating">
-          <span class="line active" id="line0">Expertos en desarrollar<br>tu marca de helado</span>
-          <span class="line" id="line1">Expertos en helados<br>de marca propia</span>
-          <span class="line" id="line2">Expertos maquiladores<br>de helado</span>
-          <span class="line" id="line3">Creamos la marca de helado<br>de tus sueños</span>
-          <span class="line" id="line4">
-            <span class="cert-line">Certificados FDA ✓</span>
-          </span>
+          <span class="line active" id="line0" v-html="t('hero.line0')"></span>
+          <span class="line" id="line1" v-html="t('hero.line1')"></span>
+          <span class="line" id="line2" v-html="t('hero.line2')"></span>
+          <span class="line" id="line3" v-html="t('hero.line3')"></span>
+          <span class="line" id="line4" v-html="t('hero.line4')"></span>
         </div>
       </div>
 
-      <p class="hero-sub">
-        19 años fabricando helados premium para supermercados, restaurantes y distribuidores que quieren su propia marca sin asumir la complejidad de una planta industrial.
-      </p>
+      <p class="hero-sub" v-html="t('hero.subtitle')"></p>
 
       <div class="hero-btns">
         <button class="btn-primary-hero" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
           <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          Solicitar Cotización
+          {{ t('hero.cta') }}
         </button>
 
       </div>
@@ -55,39 +51,38 @@
     <!-- RIGHT stats -->
     <div class="hero-right">
       <div class="hero-stat-card reveal reveal-right d1">
-        <div class="hsc-label">Capacidad de Producción</div>
-        <div class="hsc-val"><em>30 Millones de</em> Litros</div>
-        <div class="hsc-desc">de helado producidos al año</div>
+        <div class="hsc-label">{{ t('hero.statProductionLabel') }}</div>
+        <div class="hsc-val" v-html="t('hero.statProductionVal')"></div>
+        <div class="hsc-desc">{{ t('hero.statProductionDesc') }}</div>
       </div>
       <div class="hero-stat-card reveal reveal-right d2">
-        <div class="hsc-label">Trayectoria</div>
-        <div class="hsc-val"><em>19</em> Años</div>
-        <div class="hsc-desc">de experiencia industrial</div>
+        <div class="hsc-label">{{ t('hero.statYearsLabel') }}</div>
+        <div class="hsc-val" v-html="t('hero.statYearsVal')"></div>
+        <div class="hsc-desc">{{ t('hero.statYearsDesc') }}</div>
       </div>
       <div class="hero-stat-card reveal reveal-right d3">
-        <div class="hsc-label">Certificación</div>
-        <div class="hsc-val">FDA <em>✓</em></div>
-        <div class="hsc-desc">Habilitados para exportar a USA</div>
+        <div class="hsc-label">{{ t('hero.statCertLabel') }}</div>
+        <div class="hsc-val" v-html="t('hero.statCertVal')"></div>
+        <div class="hsc-desc">{{ t('hero.statCertDesc') }}</div>
       </div>
       <div class="hero-stat-card reveal reveal-right d4">
-        <div class="hsc-label">Tecnología</div>
-        <div class="hsc-val">🇮🇹 <em>Italiana</em></div>
-        <div class="hsc-desc">Maquinaria de última generación</div>
+        <div class="hsc-label">{{ t('hero.statTechLabel') }}</div>
+        <div class="hsc-val" v-html="t('hero.statTechVal')"></div>
+        <div class="hsc-desc">{{ t('hero.statTechDesc') }}</div>
       </div>
     </div>
   </div>
 
-  <div class="hero-scroll">
-    Scroll
-    <div class="hero-scroll-line"></div>
-  </div>
+
 </section>
 </template>
 
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 
+const { t } = useI18n();
 const heroVideoEl = ref<HTMLVideoElement | null>(null);
 /** Reproducción más lenta (~72 % de velocidad normal) */
 const HERO_VIDEO_PLAYBACK_RATE = 0.72;
@@ -255,7 +250,7 @@ counters.forEach(c=>cio.observe(c));
 .hero-rotating .line.active{
   position:relative;opacity:1;transform:translateY(0);
 }
-.hero-rotating .cert-line{
+:deep(.hero-rotating .cert-line){
   color:var(--primary);display:block;
   font-size:clamp(1.5rem,3.5vw,2.8rem);
   margin-top:8px;
@@ -319,7 +314,7 @@ counters.forEach(c=>cio.observe(c));
   font-size:1.7rem;font-weight:800;
   color:var(--white);letter-spacing:-.03em;
 }
-.hsc-val em{color:var(--primary);font-style:normal}
+:deep(.hsc-val em){color:var(--primary);font-style:normal}
 .hsc-desc{font-size:.75rem;color:rgba(255,255,255,.5)}
 
 .hero-scroll{
@@ -415,7 +410,7 @@ counters.forEach(c=>cio.observe(c));
     font-size: clamp(1.6rem, 9vw, 2.4rem);
   }
 
-  .hero-rotating .cert-line {
+  :deep(.hero-rotating .cert-line) {
     font-size: clamp(1.2rem, 7vw, 1.8rem);
   }
 

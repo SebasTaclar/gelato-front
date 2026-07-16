@@ -2,19 +2,19 @@
   <section class="about-section section">
     <div class="about-content section-inner">
       <div class="about-text">
-        <span class="about-label">— ¿QUIÉNES SOMOS?</span>
+        <span class="about-label">{{ t('about.eyebrow') }}</span>
         <h2 class="about-title">
-          Empoderamos marcas,<br />
-          <span class="about-title-accent">dominamos el helado.</span>
+          {{ t('about.title1') }}<br />
+          <span class="about-title-accent">{{ t('about.title2') }}</span>
         </h2>
         <p class="about-paragraph">
-          ODA Gelato es una compañía colombiana especializada en el desarrollo y producción de helados para marcas propias. Ayudamos a supermercados, distribuidores, restaurantes y emprendedores a lanzar y escalar sus marcas sin asumir la complejidad operativa de una planta de producción.
+          {{ t('about.paragraph1') }}
         </p>
         <p class="about-paragraph">
-          Con este compromiso, ODA GELATO S.A.S.  busca satisfacer la necesidad de sus clientes, contribuyendo   al bienestar del consumidor y fortaleciendo su posicionamiento en el sector de alimentos.
+          {{ t('about.paragraph2') }}
         </p>
         <a href="#" class="about-cta">
-          Conoce más de nosotros
+          {{ t('about.cta') }}
           <span class="about-cta-arrow">→</span>
         </a>
       </div>
@@ -23,6 +23,8 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 defineOptions({ name: 'AboutSection' });
 </script>
 

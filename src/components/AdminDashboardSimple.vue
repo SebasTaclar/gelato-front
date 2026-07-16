@@ -31,13 +31,13 @@
           <div class="stat-label">Disponibles</div>
         </div>
       </div>
-      <div class="stat-card">
+      <!-- <div class="stat-card">
         <div class="stat-icon">💰</div>
         <div class="stat-content">
           <div class="stat-number">${{ totalValue.toLocaleString() }} COP</div>
           <div class="stat-label">Valor Total</div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- Navegación por pestañas -->
