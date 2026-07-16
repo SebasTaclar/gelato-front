@@ -108,7 +108,9 @@
                 placeholder="Cuéntanos sobre tu experiencia, habilidades y por qué quieres unirte a nuestro equipo..."
                 v-model="vacantesData.presentacion" required></textarea>
             </div>
-            <button class="modal-submit" type="submit">Enviar Postulación →</button>
+            <button class="modal-submit" type="submit" :disabled="isSending">
+              {{ isSending ? t('footerModal.enviando') : t('footerModal.sendApplication') }}
+            </button>
           </form>
         </template>
 
@@ -150,7 +152,9 @@
                 placeholder="Describe brevemente tu producto o servicio, presentaciones, capacidades, etc..."
                 v-model="proveedorData.descripcion" required></textarea>
             </div>
-            <button class="modal-submit" type="submit">Enviar Información →</button>
+            <button class="modal-submit" type="submit" :disabled="isSending">
+              {{ isSending ? t('footerModal.enviando') : t('footerModal.sendInfo') }}
+            </button>
           </form>
         </template>
 
@@ -328,6 +332,7 @@ const submitVacantes = async () => {
 
   const success = await sendEmail({
     to_email: EMAIL_RECIPIENTS.VACANTES,
+    form_type: 'Trabaja con Nosotros',
     subject: 'Nueva postulación - Trabaje con nosotros',
     from_name: vacantesData.nombre,
     from_email: vacantesData.correo,
@@ -370,6 +375,7 @@ const submitProveedor = async () => {
 
   const success = await sendEmail({
     to_email: EMAIL_RECIPIENTS.PROVEEDOR,
+    form_type: 'Proveedor',
     subject: 'Nueva solicitud de proveedor',
     from_name: proveedorData.contacto,
     from_email: proveedorData.correo,
@@ -409,8 +415,15 @@ const submitModal = async () => {
     return
   }
 
+  const formTypeBySubject: Record<string, string> = {
+    'Nuevo mensaje - Servicio al Cliente': 'Servicio al Cliente',
+    'Nuevo mensaje - Ser cliente o Aliado': 'Ser Cliente o Aliado',
+    'Nuevo mensaje - Contabilidad': 'Contabilidad',
+  }
+
   const success = await sendEmail({
     to_email: modalRecipient.value,
+    form_type: formTypeBySubject[modalSubject.value] || 'Formulario Web',
     subject: modalSubject.value,
     from_name: modalData.nombre,
     from_email: modalData.correo,
