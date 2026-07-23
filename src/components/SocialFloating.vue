@@ -24,7 +24,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 /** Mismo número que el CTA del hero */
-const WHATSAPP_NUMBER = '573202002489'
+const WHATSAPP_NUMBER = '573118222340'
 
 const { t } = useI18n()
 

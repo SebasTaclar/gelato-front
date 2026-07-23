@@ -23,7 +23,7 @@
           <div class="cd-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 13.6a19.79 19.79 0 01-3.07-8.67A2 2 0 013.56 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 10.17a16 16 0 005.74 5.74l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
           <div>
             <div class="cd-label">{{ t('contact.whatsappLabel') }}</div>
-            <div class="cd-val"><a href="https://wa.me/573202002489">+57 320 200 2489</a></div>
+            <div class="cd-val"><a href="https://wa.me/573118222340">+57 311 822 2340</a></div>
           </div>
         </div>
         <div class="contact-detail">
